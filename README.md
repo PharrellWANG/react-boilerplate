@@ -1,6 +1,6 @@
 ### How to add sub-domain and deploy to github pages
 
-1. Change the public path in the following places:
+1. Change the public path `/react-boilerplate/` (it should be your project name) in the following places:
     
     1. server/index.js 
     2. webpack.prod.babel.js
@@ -14,6 +14,17 @@ const history = createHistory({
 });
 ```
 4. In **app/index.html**, append base name to all href urls
+
+5. `yarn add gh-pages`
+6. add below to "scripts" in **package.json** 
+```json
+    "predeploy": "yarn run build",
+    "deploy": "gh-pages -d build",
+```
+7. `yarn run build`
+8. push
+9. `yarn run deploy`
+10. go set your projects default branch as `gh-pages` in GitHub settings page.
 
 <br /> 
 
