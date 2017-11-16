@@ -16,17 +16,20 @@ const history = createHistory({
 4. In **app/index.html**, append base name to all href urls
 
 5. `npm intall --save-dev gh-pages` &&  `yarn`
+
+Note: 
+  - sometimes using `yarn add gh-pages` will have error on macOS, hence we use npm to install gh-pages. 
+  - Use yarn to install other dependencies.
 6. add below to "scripts" in **package.json** 
 ```json
     "predeploy": "yarn run build",
     "deploy": "gh-pages -d build",
 ```
-7. `yarn run build`
-8. push
-9. `yarn run deploy`
-10. go set your projects default branch as `gh-pages` in GitHub settings page.
+7. `yarn run deploy`
 
-https://pharrellwang.github.io/react-boilerplate/
+go visit: https://pharrellwang.github.io/your-project-name/ 
+
+In our example, project name is `react-boilerplate`, so go visit: https://pharrellwang.github.io/react-boilerplate/
 
 <br /> 
 
