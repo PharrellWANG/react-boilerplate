@@ -10,7 +10,7 @@
 3. In **app/app.js**, change `const history = createHistory();` to 
 ```javascript
 const history = createHistory({
-  basename: '/zwap-pay-for-you/', // e.g. domain.com/path-goes-here
+  basename: '/react-boilerplate/', // e.g. domain.com/path-goes-here
 });
 ```
 4. In **app/index.html**, append base name to all href urls
