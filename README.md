@@ -15,7 +15,7 @@ const history = createHistory({
 ```
 4. In **app/index.html**, append base name to all href urls
 
-5. `yarn add gh-pages`
+5. `npm intall --save-dev gh-pages` &&  `yarn`
 6. add below to "scripts" in **package.json** 
 ```json
     "predeploy": "yarn run build",

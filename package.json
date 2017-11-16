@@ -13,6 +13,8 @@
   "author": "Max Stoiber",
   "license": "MIT",
   "scripts": {
+    "predeploy": "yarn run build",
+    "deploy": "gh-pages -d build",
     "analyze:clean": "rimraf stats.json",
     "preanalyze": "npm run analyze:clean",
     "analyze": "node ./internals/scripts/analyze.js",
@@ -276,6 +278,7 @@
     "eventsource-polyfill": "0.9.6",
     "exports-loader": "0.6.4",
     "file-loader": "0.11.1",
+    "gh-pages": "^1.0.0",
     "html-loader": "0.4.5",
     "html-webpack-plugin": "2.29.0",
     "image-webpack-loader": "2.0.0",
