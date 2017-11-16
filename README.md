@@ -26,6 +26,8 @@ const history = createHistory({
 9. `yarn run deploy`
 10. go set your projects default branch as `gh-pages` in GitHub settings page.
 
+https://pharrellwang.github.io/react-boilerplate/
+
 <br /> 
 
 
