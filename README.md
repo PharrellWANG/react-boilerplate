@@ -1,5 +1,7 @@
 ### How to add sub-domain and deploy to github pages
 
+Checkout **customized-react-boilerplate** for the below tutorial!
+
 1. Change the public path `/react-boilerplate/` (it should be your project name) in the following places:
     
     1. server/index.js 
