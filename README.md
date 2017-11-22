@@ -1,12 +1,23 @@
+## Customized README
 ### How to add sub-domain and deploy to github pages
 
-Checkout **customized-react-boilerplate** for the below tutorial!
+Branch: **customized-react-boilerplate**
+
+> *customized-raact-boilerplate* is a customized branch, please use below guide to quick start
+
+#### Quick Start:
+
+1. `git clone https://github.com/PharrellWANG/react-boilerplate.git`
+2. `yarn`
+3. `yarn run start`, see your app at `http://localhost:3333`
+
+#### User sub-domain in github pages:
 
 1. Change the public path `/react-boilerplate/` (it should be your project name) in the following places:
     
     1. server/index.js 
-    2. webpack.prod.babel.js
-    3. webpack.base.babel.js
+    2. internals/webpack/webpack.prod.babel.js
+    3. internals/webpack/webpack.base.babel.js
 
 2. add ``start_url`` in **app/manifest.json**: ` "start_url": "/zwap-pay-for-you/",`
 3. In **app/app.js**, change `const history = createHistory();` to 
@@ -24,8 +35,10 @@ Note:
   - Use yarn to install other dependencies.
 6. add below to "scripts" in **package.json** 
 ```json
+{
     "predeploy": "yarn run build",
-    "deploy": "gh-pages -d build",
+    "deploy": "gh-pages -d build"
+    }
 ```
 7. `yarn run deploy`
 
@@ -33,6 +46,7 @@ go visit: https://pharrellwang.github.io/your-project-name/
 
 In our example, project name is `react-boilerplate`, so go visit: https://pharrellwang.github.io/react-boilerplate/
 
+## End of customized README.
 <br /> 
 
 
