@@ -11,7 +11,7 @@ Branch: **customized-react-boilerplate**
 2. `yarn`
 3. `yarn run start`, see your app at `http://localhost:3333`
 
-#### User sub-domain in github pages:
+#### Use sub-domain in github pages:
 
 1. Change the public path `/react-boilerplate/` (it should be your project name) in the following places:
     
@@ -46,7 +46,7 @@ go visit: https://pharrellwang.github.io/your-project-name/
 
 In our example, project name is `react-boilerplate`, so go visit: https://pharrellwang.github.io/react-boilerplate/
 
-## End of customized README.
+## End of customized README, below is the original README.
 <br /> 
 
 
