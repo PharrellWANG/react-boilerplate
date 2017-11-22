@@ -13,6 +13,7 @@ Branch: **customized-react-boilerplate**
 
 #### Use sub-domain in github pages:
 
+> Change the public paths start
 1. Change the public path `/react-boilerplate/` (it should be your project name) in the following places:
     
     1. server/index.js 
@@ -27,6 +28,7 @@ const history = createHistory({
 });
 ```
 4. In **app/index.html**, append base name to all href urls
+> Change the public paths end
 
 5. `npm intall --save-dev gh-pages` &&  `yarn`
 
@@ -36,9 +38,9 @@ Note:
 6. add below to "scripts" in **package.json** 
 ```json
 {
-    "predeploy": "yarn run build",
-    "deploy": "gh-pages -d build"
-    }
+  "predeploy": "yarn run build",
+  "deploy": "gh-pages -d build"    
+}
 ```
 7. `yarn run deploy`
 
