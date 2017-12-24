@@ -5,8 +5,8 @@ Checkout **customized-react-boilerplate** for the below tutorial!
 1. Change the public path `/react-boilerplate/` (it should be your project name) in the following places:
     
     1. server/index.js 
-    2. webpack.prod.babel.js
-    3. webpack.base.babel.js
+    2. internals/webpack/webpack.prod.babel.js
+    3. internals/webpack/webpack.base.babel.js
 
 2. add ``start_url`` in **app/manifest.json**: ` "start_url": "/zwap-pay-for-you/",`
 3. In **app/app.js**, change `const history = createHistory();` to 
@@ -24,8 +24,10 @@ Note:
   - Use yarn to install other dependencies.
 6. add below to "scripts" in **package.json** 
 ```json
+{
     "predeploy": "yarn run build",
-    "deploy": "gh-pages -d build",
+    "deploy": "gh-pages -d build"
+}
 ```
 7. `yarn run deploy`
 
