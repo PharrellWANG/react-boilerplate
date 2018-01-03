@@ -36,7 +36,7 @@ import DraftsIcon from 'material-ui-icons/Drafts';
 // import StarIcon from 'material-ui-icons/Star';
 import SendIcon from 'material-ui-icons/Send';
 // import MailIcon from 'material-ui-icons/Mail';
-import LocaleToggle from 'containers/LocaleToggle';
+// import LocaleToggle from 'containers/LocaleToggle';
 import Footer from 'components/Footer';
 import { compose } from 'redux';
 import PropTypes from 'prop-types';
@@ -261,7 +261,7 @@ class App extends React.Component {
                   <Typography type="title" color="inherit" className={classes.flex}>
                     {this.state.title}
                   </Typography>
-                  <LocaleToggle />
+                  {/* <LocaleToggle /> */}
                 </Toolbar>
               </AppBar>
               <Hidden mdUp>
