@@ -74,16 +74,11 @@ const styles = (theme) => ({
   },
   formControl: {
     margin: theme.spacing.unit,
-    minWidth: 120,
+    // minWidth: 120,
     verticalAlign: 'center',
   },
   selectEmpty: {
     marginTop: theme.spacing.unit * 2,
-  },
-  selector: {
-    // width: 80,
-    verticalAlign: 'center',
-    // color: 'white',
   },
 });
 
@@ -96,7 +91,7 @@ export class LocaleToggle extends React.PureComponent { // eslint-disable-line r
         <form className={classes.container} autoComplete="off">
           <FormControl className={classes.formControl}>
             <Select
-              className={classes.selector}
+              // className={classes.selector}
               value={this.props.locale}
               onChange={this.props.onLocaleToggle}
               input={<Input id="age-simple" />}
@@ -106,6 +101,9 @@ export class LocaleToggle extends React.PureComponent { // eslint-disable-line r
               </MenuItem>
               <MenuItem value={'zh'}>
                 <FormattedMessage {...messages.zh} />
+              </MenuItem>
+              <MenuItem value={'zh-Hant-HK'}>
+                <FormattedMessage {...messages.zhHantHK} />
               </MenuItem>
             </Select>
           </FormControl>

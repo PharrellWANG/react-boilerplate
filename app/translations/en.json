@@ -1,4 +1,6 @@
 {
+  "boilerplate.components.Footer.author.message": "Made with love by {author}.",
+  "boilerplate.components.Footer.license.message": "This project is licensed under the MIT license.",
   "boilerplate.components.Header.features": "Features",
   "boilerplate.components.Header.home": "Home",
   "boilerplate.containers.FeaturePage.css.header": "Features",
@@ -23,7 +25,8 @@
   "boilerplate.containers.HomePage.tryme.atPrefix": "@",
   "boilerplate.containers.HomePage.tryme.header": "Try me!",
   "boilerplate.containers.HomePage.tryme.message": "Show Github repositories by",
-  "boilerplate.containers.LocaleToggle.zh": "Chinese 中文",
-  "boilerplate.containers.LocaleToggle.en": "English 英文",
+  "boilerplate.containers.LocaleToggle.en": "EN",
+  "boilerplate.containers.LocaleToggle.zh": "简",
+  "boilerplate.containers.LocaleToggle.zhHantHK": "繁",
   "boilerplate.containers.NotFoundPage.header": "Page not found."
 }

@@ -12,6 +12,10 @@ export default defineMessages({
   },
   zh: {
     id: 'boilerplate.containers.LocaleToggle.zh',
-    defaultMessage: '中文',
+    defaultMessage: '简中',
+  },
+  zhHantHK: {
+    id: 'boilerplate.containers.LocaleToggle.zhHantHK',
+    defaultMessage: '繁中',
   },
 });

@@ -1,7 +1,8 @@
-# Integrating Auth Logic
+# Integrated material-ui-next
 
-## Redux-Auth-Wrapper
-## Saga-login-flow
+## zh-Hant-HK locale added
+``zh-Hant-HK`` cannot be generated using ``yarn generate language`` which is provided by the boilerplate.
+However, we can manually add it.
 
 <img src="https://raw.githubusercontent.com/react-boilerplate/react-boilerplate-brand/master/assets/banner-metal-optimized.jpg" alt="react boilerplate banner" align="center" />
 

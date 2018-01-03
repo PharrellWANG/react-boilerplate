@@ -12,6 +12,7 @@ import { DEFAULT_LOCALE } from '../app/containers/App/constants';
 
 import enTranslationMessages from './translations/en.json';
 import zhTranslationMessages from './translations/zh.json';
+import zhHantHKTranslationMessages from './translations/zh-Hant-HK.json';
 
 addLocaleData(enLocaleData);
 addLocaleData(zhLocaleData);
@@ -19,6 +20,7 @@ addLocaleData(zhLocaleData);
 export const appLocales = [
   'en',
   'zh',
+  'zh-Hant-HK',
 ];
 
 export const formatTranslationMessages = (locale, messages) => {
@@ -36,4 +38,5 @@ export const formatTranslationMessages = (locale, messages) => {
 export const translationMessages = {
   en: formatTranslationMessages('en', enTranslationMessages),
   zh: formatTranslationMessages('zh', zhTranslationMessages),
+  'zh-Hant-HK': formatTranslationMessages('zh-Hant-HK', zhHantHKTranslationMessages),
 };
