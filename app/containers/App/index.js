@@ -21,6 +21,10 @@ import Drawer from 'material-ui/Drawer';
 import Hidden from 'material-ui/Hidden';
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
+import ExpandLess from 'material-ui-icons/ExpandLess';
+import ExpandMore from 'material-ui-icons/ExpandMore';
+// import StarBorder from 'material-ui-icons/StarBorder';
+import Collapse from 'material-ui/transitions/Collapse';
 import Typography from 'material-ui/Typography';
 import Divider from 'material-ui/Divider';
 import MenuIcon from 'material-ui-icons/Menu';
@@ -110,10 +114,13 @@ const styles = {
     },
     height: '100%',
   },
+  innerContent: {
+    padding: theme.spacing.unit * 3,
+  },
   content: {
     backgroundColor: theme.palette.background.default,
     width: '100%',
-    padding: theme.spacing.unit * 3,
+    // padding: theme.spacing.unit * 3,
     height: 'calc(100% - 56px)',
     marginTop: 56,
     // position: 'relative',
@@ -122,6 +129,7 @@ const styles = {
       marginLeft: drawerWidth,
       width: `calc(100% - ${drawerWidth}px)`,
     },
+
     // [theme.breakpoints.up('sm')]: {
     //   marginLeft: drawerWidth,
     //   width: `calc(100% - ${drawerWidth}px)`,
@@ -137,12 +145,16 @@ const styles = {
     //   },
     // },
   },
+  nested: {
+    paddingLeft: theme.spacing.unit,
+  },
 };
 
 class App extends React.Component {
   state = {
     mobileOpen: false,
     title: '',
+    subMenusOpen: true,
   };
 
   // to render the component title at the initial rendering
@@ -162,6 +174,10 @@ class App extends React.Component {
       this.setState({ title: 'Features' });
     }
   }
+
+  handleClick = () => {
+    this.setState({ subMenusOpen: !this.state.subMenusOpen });
+  };
 
   handleDrawerToggle = () => {
     this.setState({ mobileOpen: !this.state.mobileOpen });
@@ -192,12 +208,20 @@ class App extends React.Component {
     const externalLinkButtons = (
       <div>
         <List>
-          <ListItem button component="a" href="https://git.io/wzx" target="_blank" onClick={this.handleDrawerToggle}>
+          <ListItem button onClick={this.handleClick}>
             <ListItemIcon>
               <InboxIcon />
             </ListItemIcon>
-            <ListItemText primary="External" />
+            <ListItemText inset primary="External" />
+            {this.state.subMenusOpen ? <ExpandLess /> : <ExpandMore />}
           </ListItem>
+          <Collapse component="li" in={this.state.subMenusOpen} timeout="auto" unmountOnExit>
+            <List disablePadding>
+              <ListItem button className={classes.nested} component="a" href="https://git.io/wzx" target="_blank" onClick={this.handleDrawerToggle}>
+                <ListItemText inset primary="Résumé" />
+              </ListItem>
+            </List>
+          </Collapse>
         </List>
       </div>
     );
@@ -269,11 +293,13 @@ class App extends React.Component {
               </Hidden>
               <main className={classes.content}>
                 {/* <Typography noWrap>{'You think water moves fast? You should see ice.'}</Typography> */}
-                <Switch>
-                  <Route exact path="/" component={HomePage} />
-                  <Route path="/features" component={FeaturePage} />
-                  <Route path="" component={NotFoundPage} />
-                </Switch>
+                <div className={classes.innerContent}>
+                  <Switch>
+                    <Route exact path="/" component={HomePage} />
+                    <Route path="/features" component={FeaturePage} />
+                    <Route path="" component={NotFoundPage} />
+                  </Switch>
+                </div>
                 <Footer />
               </main>
             </div>
