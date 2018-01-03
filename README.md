@@ -2,7 +2,7 @@
 
 ## zh-Hant-HK locale added
 ``zh-Hant-HK`` cannot be generated using ``yarn generate language`` which is provided by the boilerplate.
-However, we can manually add it.
+However, we can manually add it. Details refer to 017a0700a7593ec31dd0d0dd7a9926a459ed9061
 
 <img src="https://raw.githubusercontent.com/react-boilerplate/react-boilerplate-brand/master/assets/banner-metal-optimized.jpg" alt="react boilerplate banner" align="center" />
 
