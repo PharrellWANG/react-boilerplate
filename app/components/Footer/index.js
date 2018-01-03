@@ -2,14 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import LocaleToggle from 'containers/LocaleToggle';
 import { compose } from 'redux';
-// import { FormattedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import { withStyles, withTheme } from 'material-ui/styles/index';
 import Typography from 'material-ui/Typography';
 
 // import A from 'components/A';
-// import LocaleToggle from 'containers/LocaleToggle';
 import Wrapper from './Wrapper';
-// import messages from './messages';
+import messages from './messages';
 
 const styles = {
   sectionLeft: {
@@ -34,7 +33,7 @@ class Footer extends React.Component { // eslint-disable-line react/prefer-state
         <section className={classes.sectionLeft}>
           <Typography className={classes.copyright} gutterBottom noWrap>
             {/* &copy; <FormattedMessage {...messages.copyright} /> 2018, <FormattedMessage {...messages.myName} /> */}
-            &copy; 2018, the Author
+            &copy; 2018, <FormattedMessage {...messages.theAuthor} />
           </Typography>
         </section>
         <section className={classes.sectionRight}>

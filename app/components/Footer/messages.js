@@ -16,4 +16,8 @@ export default defineMessages({
       Made with love by {author}.
     `,
   },
+  theAuthor: {
+    id: 'boilerplate.components.Footer.author.name',
+    defaultMessage: 'the Author',
+  },
 });

@@ -295,7 +295,6 @@ class App extends React.Component {
                 </Drawer>
               </Hidden>
               <main className={classes.content}>
-                {/* <Typography noWrap>{'You think water moves fast? You should see ice.'}</Typography> */}
                 <div className={classes.innerContent}>
                   <Switch>
                     <Route exact path="/" component={HomePage} />
