@@ -10,7 +10,8 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 import styled from 'styled-components';
 import Reboot from 'material-ui/Reboot';
-import { Switch, Route, Link } from 'react-router-dom';
+// import { matchPath } from 'react-router';
+import { Switch, Route, NavLink, withRouter } from 'react-router-dom';
 import { MuiThemeProvider, createMuiTheme, withStyles, withTheme } from 'material-ui/styles';
 import HomePage from 'containers/HomePage/Loadable';
 import FeaturePage from 'containers/FeaturePage/Loadable';
@@ -23,17 +24,19 @@ import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
 import Divider from 'material-ui/Divider';
 import MenuIcon from 'material-ui-icons/Menu';
+import MenuList from 'material-ui/Menu/MenuList';
 import IconButton from 'material-ui/IconButton';
 import List, { ListItem, ListItemIcon, ListItemText } from 'material-ui/List';
 import InboxIcon from 'material-ui-icons/MoveToInbox';
 import DraftsIcon from 'material-ui-icons/Drafts';
-import StarIcon from 'material-ui-icons/Star';
+// import StarIcon from 'material-ui-icons/Star';
 import SendIcon from 'material-ui-icons/Send';
-import MailIcon from 'material-ui-icons/Mail';
+// import MailIcon from 'material-ui-icons/Mail';
 import LocaleToggle from 'containers/LocaleToggle';
 import Footer from 'components/Footer';
 import { compose } from 'redux';
 import PropTypes from 'prop-types';
+import MenuItem from 'material-ui/es/Menu/MenuItem';
 
 const AppWrapper = styled.div`
   // max-width: calc(768px + 16px * 2);
@@ -110,7 +113,6 @@ const styles = {
   content: {
     backgroundColor: theme.palette.background.default,
     width: '100%',
-    // marginLeft: drawerWidth,
     padding: theme.spacing.unit * 3,
     height: 'calc(100% - 56px)',
     marginTop: 56,
@@ -120,12 +122,12 @@ const styles = {
       marginLeft: drawerWidth,
       width: `calc(100% - ${drawerWidth}px)`,
     },
-    [theme.breakpoints.up('sm')]: {
-      marginLeft: drawerWidth,
-      width: `calc(100% - ${drawerWidth}px)`,
-      height: 'calc(100% - 64px)',
-      marginTop: 64,
-    },
+    // [theme.breakpoints.up('sm')]: {
+    //   marginLeft: drawerWidth,
+    //   width: `calc(100% - ${drawerWidth}px)`,
+      // height: 'calc(100% - 64px)',
+      // marginTop: 64,
+    // },
     // listItem: {
     // '&:focus': {
     //   background: theme.palette.primary[500],
@@ -140,56 +142,63 @@ const styles = {
 class App extends React.Component {
   state = {
     mobileOpen: false,
+    title: '',
   };
+
+  // to render the component title at the initial rendering
+  componentWillMount() {
+    if (this.props.location.pathname === '/') {
+      this.setState({ title: 'Home' });
+    } else if (this.props.location.pathname === '/features') {
+      this.setState({ title: 'Features' });
+    }
+  }
+
+  // to render the component title at menus item switch
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.location.pathname === '/') {
+      this.setState({ title: 'Home' });
+    } else if (nextProps.location.pathname === '/features') {
+      this.setState({ title: 'Features' });
+    }
+  }
 
   handleDrawerToggle = () => {
     this.setState({ mobileOpen: !this.state.mobileOpen });
   };
 
-  handleDrawerToggleAndSetTitle = () => {
-    this.setState({ mobileOpen: !this.state.mobileOpen });
-  };
-
   render() {
-    const { classes } = this.props;
+    const { classes, location } = this.props;
 
-    const mailFolderListItems = (
+    const internalLinkButtons = (
       <div>
-        <ListItem button component={Link} to="/features" onClick={this.handleDrawerToggleAndSetTitle}>
-          <ListItemIcon>
-            <InboxIcon />
-          </ListItemIcon>
-          <ListItemText primary="features" />
-        </ListItem>
-        <ListItem button component={Link} to="/" onClick={this.handleDrawerToggleAndSetTitle}>
-          <ListItemIcon>
-            <StarIcon />
-          </ListItemIcon>
-          <ListItemText primary="home" />
-        </ListItem>
-        <ListItem button component="a" href="https://git.io/wzx" target="_blank" onClick={this.handleDrawerToggle}>
-          <ListItemIcon>
-            <SendIcon />
-          </ListItemIcon>
-          <ListItemText primary="Send mail" />
-        </ListItem>
-        <ListItem button>
-          <ListItemIcon>
-            <DraftsIcon />
-          </ListItemIcon>
-          <ListItemText primary="Drafts" />
-        </ListItem>
+        <MenuList>
+          <MenuItem button selected={location.pathname === '/'} component={NavLink} to="/" onClick={this.handleDrawerToggle}>
+            <ListItemIcon>
+              <SendIcon />
+            </ListItemIcon>
+            <ListItemText primary="Home" />
+          </MenuItem>
+          <MenuItem button selected={location.pathname === '/features'} component={NavLink} to="/features" onClick={this.handleDrawerToggle}>
+            <ListItemIcon>
+              <DraftsIcon />
+            </ListItemIcon>
+            <ListItemText primary="Features" />
+          </MenuItem>
+        </MenuList>
       </div>
     );
 
-    const otherMailFolderListItems = (
+    const externalLinkButtons = (
       <div>
-        <ListItem button>
-          <ListItemIcon>
-            <MailIcon />
-          </ListItemIcon>
-          <ListItemText primary="All mail" />
-        </ListItem>
+        <List>
+          <ListItem button component="a" href="https://git.io/wzx" target="_blank" onClick={this.handleDrawerToggle}>
+            <ListItemIcon>
+              <InboxIcon />
+            </ListItemIcon>
+            <ListItemText primary="External" />
+          </ListItem>
+        </List>
       </div>
     );
 
@@ -197,9 +206,9 @@ class App extends React.Component {
       <div>
         <div className={classes.drawerHeader} />
         <Divider />
-        <List>{mailFolderListItems}</List>
+        <List>{internalLinkButtons}</List>
         <Divider />
-        <List>{otherMailFolderListItems}</List>
+        <List>{externalLinkButtons}</List>
       </div>
     );
 
@@ -226,7 +235,7 @@ class App extends React.Component {
                     <MenuIcon />
                   </IconButton>
                   <Typography type="title" color="inherit" className={classes.flex}>
-                    title
+                    {this.state.title}
                   </Typography>
                   <LocaleToggle />
                 </Toolbar>
@@ -259,7 +268,7 @@ class App extends React.Component {
                 </Drawer>
               </Hidden>
               <main className={classes.content}>
-                <Typography noWrap>{'You think water moves fast? You should see ice.'}</Typography>
+                {/* <Typography noWrap>{'You think water moves fast? You should see ice.'}</Typography> */}
                 <Switch>
                   <Route exact path="/" component={HomePage} />
                   <Route path="/features" component={FeaturePage} />
@@ -277,9 +286,11 @@ class App extends React.Component {
 
 App.propTypes = {
   classes: PropTypes.object.isRequired,
+  location: PropTypes.object.isRequired,
 };
 
 export default compose(
   withStyles(styles),
   withTheme(),
+  withRouter,
 )(App);
