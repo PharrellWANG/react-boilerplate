@@ -17,6 +17,7 @@ import HomePage from 'containers/HomePage/Loadable';
 import FeaturePage from 'containers/FeaturePage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 // import Header from 'components/Header';
+import { injectIntl } from 'react-intl';
 import Drawer from 'material-ui/Drawer';
 import Hidden from 'material-ui/Hidden';
 import AppBar from 'material-ui/AppBar';
@@ -41,6 +42,7 @@ import Footer from 'components/Footer';
 import { compose } from 'redux';
 import PropTypes from 'prop-types';
 import MenuItem from 'material-ui/es/Menu/MenuItem';
+import messages from './messages';
 
 const AppWrapper = styled.div`
   // max-width: calc(768px + 16px * 2);
@@ -160,18 +162,18 @@ class App extends React.Component {
   // to render the component title at the initial rendering
   componentWillMount() {
     if (this.props.location.pathname === '/') {
-      this.setState({ title: 'Home' });
+      this.setState({ title: this.props.intl.formatMessage(messages.drawerHome) });
     } else if (this.props.location.pathname === '/features') {
-      this.setState({ title: 'Features' });
+      this.setState({ title: this.props.intl.formatMessage(messages.drawerFeatures) });
     }
   }
 
   // to render the component title at menus item switch
   componentWillReceiveProps(nextProps) {
     if (nextProps.location.pathname === '/') {
-      this.setState({ title: 'Home' });
+      this.setState({ title: this.props.intl.formatMessage(messages.drawerHome) });
     } else if (nextProps.location.pathname === '/features') {
-      this.setState({ title: 'Features' });
+      this.setState({ title: this.props.intl.formatMessage(messages.drawerFeatures) });
     }
   }
 
@@ -184,7 +186,8 @@ class App extends React.Component {
   };
 
   render() {
-    const { classes, location } = this.props;
+    const { classes, location, intl } = this.props;
+    const { formatMessage } = intl;
 
     const internalLinkButtons = (
       <div>
@@ -193,13 +196,13 @@ class App extends React.Component {
             <ListItemIcon>
               <SendIcon />
             </ListItemIcon>
-            <ListItemText primary="Home" />
+            <ListItemText primary={formatMessage(messages.drawerHome)} />
           </MenuItem>
           <MenuItem button selected={location.pathname === '/features'} component={NavLink} to="/features" onClick={this.handleDrawerToggle}>
             <ListItemIcon>
               <DraftsIcon />
             </ListItemIcon>
-            <ListItemText primary="Features" />
+            <ListItemText primary={formatMessage(messages.drawerFeatures)} />
           </MenuItem>
         </MenuList>
       </div>
@@ -212,7 +215,7 @@ class App extends React.Component {
             <ListItemIcon>
               <InboxIcon />
             </ListItemIcon>
-            <ListItemText inset primary="External" />
+            <ListItemText inset primary={formatMessage(messages.externalLinks)} />
             {this.state.subMenusOpen ? <ExpandLess /> : <ExpandMore />}
           </ListItem>
           <Collapse component="li" in={this.state.subMenusOpen} timeout="auto" unmountOnExit>
@@ -313,10 +316,12 @@ class App extends React.Component {
 App.propTypes = {
   classes: PropTypes.object.isRequired,
   location: PropTypes.object.isRequired,
+  intl: PropTypes.object.isRequired,
 };
 
 export default compose(
   withStyles(styles),
   withTheme(),
   withRouter,
+  injectIntl,
 )(App);

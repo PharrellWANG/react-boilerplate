@@ -28,5 +28,8 @@
   "boilerplate.containers.LocaleToggle.en": "EN",
   "boilerplate.containers.LocaleToggle.zh": "简",
   "boilerplate.containers.LocaleToggle.zhHantHK": "繁",
-  "boilerplate.containers.NotFoundPage.header": "Page not found."
+  "boilerplate.containers.NotFoundPage.header": "Page not found.",
+  "boilerplate.containers.App.drawer.features": "Features",
+  "boilerplate.containers.App.drawer.home": "Home",
+  "boilerplate.containers.App.drawer.externalLinks": "External"
 }
