@@ -13,14 +13,16 @@ import Wrapper from './Wrapper';
 
 const styles = {
   sectionLeft: {
-    paddingTop: 5,
+    // paddingTop: 5,
     paddingLeft: 10,
   },
   sectionRight: {
     paddingRight: 10,
   },
   copyright: {
+    // verticalAlign: 'middle',
     // fontSize: 18,
+    paddingTop: 18,
   },
 };
 
