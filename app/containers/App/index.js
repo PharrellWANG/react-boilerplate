@@ -54,6 +54,7 @@ import messages from './messages';
 // import { isLoggedIn } from '../../utils/localStorage';
 // import makeSelectIsLoggedIn from '../SignIn/selectors';
 import { makeSelectIsLoggedIn } from './selectors';
+// import bgImageAsHK from 'images/hk.jpg';
 // import { changeUsername } from '../HomePage/actions'
 
 const AppWrapper = styled.div`
@@ -73,8 +74,17 @@ const theme = createMuiTheme({
 });
 
 const drawerWidth = 250;
+// const bgImg = 'images/hk.jpg';
 
 const styles = {
+  // bgDiv: {
+    // backgroundImage: 'url(https://ibb.co/hMd2zw)',
+    // backgroundImage: `url(${bgImg})`,
+    // backgroundSize: 'cover',
+    // backgroundColor: '#efefef',
+    // overflow: 'hidden',
+    // height: '100%',
+  // },
   flex: {
     flex: 1,
     fontWeight: 420,
@@ -341,15 +351,11 @@ class App extends React.Component {
                   <Footer />
                 </main>
               </div>
-              : <div className={classes.appFrame}>
-                <div className={classes.contentNotSignInYet}>
-                  <div className={classes.innerContent}>
-                    <Switch>
-                      <Route exact path="/signin" component={SignIn} />
-                      <Route exact path="/signup" component={SignIn} />
-                    </Switch>
-                  </div>
-                </div>
+              : <div>
+                <Switch>
+                  <Route exact path="/signin" component={SignIn} />
+                  <Route exact path="/signup" component={SignIn} />
+                </Switch>
               </div>
                 }
           </div>
