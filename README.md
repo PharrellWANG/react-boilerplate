@@ -30,7 +30,7 @@ const history = createHistory({
 4. In **app/index.html**, append base name to all href urls
 > Change the public paths end
 
-5. `npm intall --save-dev gh-pages` &&  `yarn`
+5. `npm install --save-dev gh-pages` &&  `yarn`
 
 Note: 
   - sometimes using `yarn add gh-pages` will have error on macOS, hence we use npm to install gh-pages. 
