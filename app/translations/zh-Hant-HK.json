@@ -32,5 +32,6 @@
   "boilerplate.containers.NotFoundPage.header": "頁面找不到",
   "boilerplate.containers.App.drawer.features": "特點",
   "boilerplate.containers.App.drawer.home": "主頁",
-  "boilerplate.containers.App.drawer.externalLinks": "外部連結"
+  "boilerplate.containers.App.drawer.externalLinks": "外部連結",
+  "boilerplate.containers.App.drawer.resumeLink": "簡歷"
 }

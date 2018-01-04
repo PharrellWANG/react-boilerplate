@@ -18,4 +18,8 @@ export default defineMessages({
     id: 'boilerplate.containers.App.drawer.externalLinks',
     defaultMessage: 'External',
   },
+  resumeLink: {
+    id: 'boilerplate.containers.App.drawer.resumeLink',
+    defaultMessage: 'External',
+  },
 });

@@ -22,17 +22,19 @@ import Drawer from 'material-ui/Drawer';
 import Hidden from 'material-ui/Hidden';
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
-import ExpandLess from 'material-ui-icons/ExpandLess';
-import ExpandMore from 'material-ui-icons/ExpandMore';
+// import ExpandLess from 'material-ui-icons/ExpandLess';
+// import ExpandMore from 'material-ui-icons/ExpandMore';
 // import StarBorder from 'material-ui-icons/StarBorder';
-import Collapse from 'material-ui/transitions/Collapse';
+import { OpenInNew } from 'mdi-material-ui';
+// import { GithubCircle } from 'mdi-material-ui';
+// import Collapse from 'material-ui/transitions/Collapse';
 import Typography from 'material-ui/Typography';
 import Divider from 'material-ui/Divider';
 import MenuIcon from 'material-ui-icons/Menu';
 import MenuList from 'material-ui/Menu/MenuList';
 import IconButton from 'material-ui/IconButton';
-import List, { ListItem, ListItemIcon, ListItemText } from 'material-ui/List';
-import InboxIcon from 'material-ui-icons/MoveToInbox';
+import List, { ListItemIcon, ListItemText } from 'material-ui/List';
+// import InboxIcon from 'material-ui-icons/MoveToInbox';
 import DraftsIcon from 'material-ui-icons/Drafts';
 // import StarIcon from 'material-ui-icons/Star';
 import SendIcon from 'material-ui-icons/Send';
@@ -210,22 +212,31 @@ class App extends React.Component {
 
     const externalLinkButtons = (
       <div>
-        <List>
-          <ListItem button onClick={this.handleClick}>
+        {/* collapse example, kept here for future reference */}
+        {/* <List> */}
+        {/* <ListItem button onClick={this.handleClick}> */}
+        {/* <ListItemIcon> */}
+        {/* <InboxIcon /> */}
+        {/* </ListItemIcon> */}
+        {/* <ListItemText inset primary={formatMessage(messages.externalLinks)} /> */}
+        {/* {this.state.subMenusOpen ? <ExpandLess /> : <ExpandMore />} */}
+        {/* </ListItem> */}
+        {/* <Collapse component="li" in={this.state.subMenusOpen} timeout="auto" unmountOnExit> */}
+        {/* <List disablePadding> */}
+        {/* <ListItem button className={classes.nested} component="a" href="https://git.io/wzx" target="_blank" onClick={this.handleDrawerToggle}> */}
+        {/* <ListItemText inset primary="Résumé" /> */}
+        {/* </ListItem> */}
+        {/* </List> */}
+        {/* </Collapse> */}
+        {/* </List> */}
+        <MenuList>
+          <MenuItem button component="a" href="https://git.io/wzx" target="_blank" onClick={this.handleDrawerToggle}>
             <ListItemIcon>
-              <InboxIcon />
+              <OpenInNew />
             </ListItemIcon>
-            <ListItemText inset primary={formatMessage(messages.externalLinks)} />
-            {this.state.subMenusOpen ? <ExpandLess /> : <ExpandMore />}
-          </ListItem>
-          <Collapse component="li" in={this.state.subMenusOpen} timeout="auto" unmountOnExit>
-            <List disablePadding>
-              <ListItem button className={classes.nested} component="a" href="https://git.io/wzx" target="_blank" onClick={this.handleDrawerToggle}>
-                <ListItemText inset primary="Résumé" />
-              </ListItem>
-            </List>
-          </Collapse>
-        </List>
+            <ListItemText primary={formatMessage(messages.resumeLink)} />
+          </MenuItem>
+        </MenuList>
       </div>
     );
 

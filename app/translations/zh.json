@@ -32,5 +32,6 @@
   "boilerplate.containers.NotFoundPage.header": "页面没找到",
   "boilerplate.containers.App.drawer.features": "特点",
   "boilerplate.containers.App.drawer.home": "主页",
-  "boilerplate.containers.App.drawer.externalLinks": "外部链接"
+  "boilerplate.containers.App.drawer.externalLinks": "外部链接",
+  "boilerplate.containers.App.drawer.resumeLink": "简历"
 }

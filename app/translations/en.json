@@ -32,5 +32,6 @@
   "boilerplate.containers.NotFoundPage.header": "Page not found.",
   "boilerplate.containers.App.drawer.features": "Features",
   "boilerplate.containers.App.drawer.home": "Home",
-  "boilerplate.containers.App.drawer.externalLinks": "External"
+  "boilerplate.containers.App.drawer.externalLinks": "External",
+  "boilerplate.containers.App.drawer.resumeLink": "Résumé"
 }
