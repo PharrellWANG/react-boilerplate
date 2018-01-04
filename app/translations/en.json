@@ -1,4 +1,5 @@
 {
+  "boilerplate.components.Footer.author.name": "the Author",
   "boilerplate.components.Footer.author.message": "Made with love by {author}.",
   "boilerplate.components.Footer.license.message": "This project is licensed under the MIT license.",
   "boilerplate.components.Header.features": "Features",
@@ -28,5 +29,9 @@
   "boilerplate.containers.LocaleToggle.en": "EN",
   "boilerplate.containers.LocaleToggle.zh": "简",
   "boilerplate.containers.LocaleToggle.zhHantHK": "繁",
-  "boilerplate.containers.NotFoundPage.header": "Page not found."
+  "boilerplate.containers.NotFoundPage.header": "Page not found.",
+  "boilerplate.containers.App.drawer.features": "Features",
+  "boilerplate.containers.App.drawer.home": "Home",
+  "boilerplate.containers.App.drawer.externalLinks": "External",
+  "boilerplate.containers.App.drawer.resumeLink": "Résumé"
 }
