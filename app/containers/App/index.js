@@ -10,12 +10,18 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 import styled from 'styled-components';
 import Reboot from 'material-ui/Reboot';
+import { connect } from 'react-redux';
 // import { matchPath } from 'react-router';
+// import { Redirect } from 'react-router';
+// import { browserHistory } from 'react-router'
+import { push } from 'react-router-redux';
 import { Switch, Route, NavLink, withRouter } from 'react-router-dom';
+import { createStructuredSelector } from 'reselect';
 import { MuiThemeProvider, createMuiTheme, withStyles, withTheme } from 'material-ui/styles';
 import HomePage from 'containers/HomePage/Loadable';
 import FeaturePage from 'containers/FeaturePage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
+import SignIn from 'containers/SignIn/Loadable';
 // import Header from 'components/Header';
 import { injectIntl } from 'react-intl';
 import Drawer from 'material-ui/Drawer';
@@ -45,6 +51,10 @@ import { compose } from 'redux';
 import PropTypes from 'prop-types';
 import MenuItem from 'material-ui/es/Menu/MenuItem';
 import messages from './messages';
+// import { isLoggedIn } from '../../utils/localStorage';
+// import makeSelectIsLoggedIn from '../SignIn/selectors';
+import { makeSelectIsLoggedIn } from './selectors';
+// import { changeUsername } from '../HomePage/actions'
 
 const AppWrapper = styled.div`
   // max-width: calc(768px + 16px * 2);
@@ -103,6 +113,9 @@ const styles = {
       width: `calc(100% - ${drawerWidth}px)`,
     },
   },
+  appBarFullWidth: {
+    position: 'fixed',
+  },
   navIconHide: {
     [theme.breakpoints.up('md')]: {
       display: 'none',
@@ -117,6 +130,9 @@ const styles = {
       // height: '100%',
     },
     height: '100%',
+  },
+  contentNotSignInYet: {
+    marginTop: 56,
   },
   innerContent: {
     padding: theme.spacing.unit * 3,
@@ -163,6 +179,11 @@ class App extends React.Component {
 
   // to render the component title at the initial rendering
   componentWillMount() {
+    // if (!this.props.isLoggedIn) {
+    //   this.props.history.push('/signin')
+    // }
+    //
+    this.props.checkAuth(this.props.isLoggedIn, this.props.location.pathname);
     if (this.props.location.pathname === '/') {
       this.setState({ title: this.props.intl.formatMessage(messages.drawerHome) });
     } else if (this.props.location.pathname === '/features') {
@@ -172,6 +193,9 @@ class App extends React.Component {
 
   // to render the component title at menus item switch
   componentWillReceiveProps(nextProps) {
+    if (nextProps.isLoggedIn !== this.props.isLoggedIn) {
+      this.props.checkAuth(nextProps.isLoggedIn, this.props.location.pathname);
+    }
     if (nextProps.location.pathname === '/') {
       this.setState({ title: this.props.intl.formatMessage(messages.drawerHome) });
     } else if (nextProps.location.pathname === '/features') {
@@ -179,9 +203,9 @@ class App extends React.Component {
     }
   }
 
-  handleClick = () => {
-    this.setState({ subMenusOpen: !this.state.subMenusOpen });
-  };
+  // handleClick = () => {
+  //   this.setState({ subMenusOpen: !this.state.subMenusOpen });
+  // };
 
   handleDrawerToggle = () => {
     this.setState({ mobileOpen: !this.state.mobileOpen });
@@ -261,61 +285,73 @@ class App extends React.Component {
             <meta name="description" content="A React.js Boilerplate application" />
           </Helmet>
           <div className={classes.root}>
-            <div className={classes.appFrame}>
-              <AppBar className={classes.appBar}>
-                <Toolbar>
-                  <IconButton
-                    color="contrast"
-                    aria-label="open drawer"
-                    onClick={this.handleDrawerToggle}
-                    className={classes.navIconHide}
+            { this.props.isLoggedIn ?
+              <div className={classes.appFrame}>
+                <AppBar className={classes.appBar}>
+                  <Toolbar>
+                    <IconButton
+                      color="contrast"
+                      aria-label="open drawer"
+                      onClick={this.handleDrawerToggle}
+                      className={classes.navIconHide}
+                    >
+                      <MenuIcon />
+                    </IconButton>
+                    <Typography type="title" color="inherit" className={classes.flex}>
+                      {this.state.title}
+                    </Typography>
+                  </Toolbar>
+                </AppBar>
+                <Hidden mdUp>
+                  <Drawer
+                    type="temporary"
+                    anchor={theme.direction === 'rtl' ? 'right' : 'left'}
+                    open={this.state.mobileOpen}
+                    classes={{
+                      paper: classes.drawerPaper,
+                    }}
+                    onClose={this.handleDrawerToggle}
+                    ModalProps={{
+                      keepMounted: true, // Better open performance on mobile.
+                    }}
                   >
-                    <MenuIcon />
-                  </IconButton>
-                  <Typography type="title" color="inherit" className={classes.flex}>
-                    {this.state.title}
-                  </Typography>
-                  {/* <LocaleToggle /> */}
-                </Toolbar>
-              </AppBar>
-              <Hidden mdUp>
-                <Drawer
-                  type="temporary"
-                  anchor={theme.direction === 'rtl' ? 'right' : 'left'}
-                  open={this.state.mobileOpen}
-                  classes={{
-                    paper: classes.drawerPaper,
-                  }}
-                  onClose={this.handleDrawerToggle}
-                  ModalProps={{
-                    keepMounted: true, // Better open performance on mobile.
-                  }}
-                >
-                  {drawer}
-                </Drawer>
-              </Hidden>
-              <Hidden smDown implementation="css">
-                <Drawer
-                  type="permanent"
-                  open
-                  classes={{
-                    paper: classes.drawerPaper,
-                  }}
-                >
-                  {drawer}
-                </Drawer>
-              </Hidden>
-              <main className={classes.content}>
-                <div className={classes.innerContent}>
-                  <Switch>
-                    <Route exact path="/" component={HomePage} />
-                    <Route path="/features" component={FeaturePage} />
-                    <Route path="" component={NotFoundPage} />
-                  </Switch>
+                    {drawer}
+                  </Drawer>
+                </Hidden>
+                <Hidden smDown implementation="css">
+                  <Drawer
+                    type="permanent"
+                    open
+                    classes={{
+                      paper: classes.drawerPaper,
+                    }}
+                  >
+                    {drawer}
+                  </Drawer>
+                </Hidden>
+                {/* { !this.props.isLoggedIn && <Redirect to='/signin' push={true} />} */}
+                <main className={classes.content}>
+                  <div className={classes.innerContent}>
+                    <Switch>
+                      <Route exact path="/" component={HomePage} />
+                      <Route path="/features" component={FeaturePage} />
+                      <Route path="*" component={NotFoundPage} />
+                    </Switch>
+                  </div>
+                  <Footer />
+                </main>
+              </div>
+              : <div className={classes.appFrame}>
+                <div className={classes.contentNotSignInYet}>
+                  <div className={classes.innerContent}>
+                    <Switch>
+                      <Route exact path="/signin" component={SignIn} />
+                      <Route exact path="/signup" component={SignIn} />
+                    </Switch>
+                  </div>
                 </div>
-                <Footer />
-              </main>
-            </div>
+              </div>
+                }
           </div>
         </AppWrapper>
       </MuiThemeProvider>
@@ -323,15 +359,47 @@ class App extends React.Component {
   }
 }
 
+const mapStateToProps = createStructuredSelector({
+  isLoggedIn: makeSelectIsLoggedIn(),
+});
+//
+export function mapDispatchToProps(dispatch) {
+  return {
+    checkAuth: (isLoggedIn, location) => {
+      if (!isLoggedIn && ['/signin', '/signup'].includes(location)) {
+        dispatch(push(location));
+      } else if (!isLoggedIn && !['/signin', '/signup'].includes(location)) {
+        dispatch(push('/signin'));
+      } else if (isLoggedIn && ['/signin', '/signup'].includes(location)) {
+        dispatch(push('/'));
+      }
+    },
+  };
+}
+//
+const withConnect = connect(mapStateToProps, mapDispatchToProps);
+// const withConnect = connect(mapStateToProps, null);
+// const withConnect = connect(null, mapDispatchToProps);
+
 App.propTypes = {
   classes: PropTypes.object.isRequired,
   location: PropTypes.object.isRequired,
   intl: PropTypes.object.isRequired,
+  isLoggedIn: PropTypes.bool,
+  checkAuth: PropTypes.func,
+  // history: React.PropTypes.shape({
+  //   push: React.PropTypes.func.isRequired,
+  // }).isRequired,
 };
 
 export default compose(
+  // put withRouter in the first place, otherwise many stuff won't work!
+  withRouter,
+  withConnect,
   withStyles(styles),
   withTheme(),
-  withRouter,
   injectIntl,
 )(App);
+//
+// export default injectIntl()(withTheme()(withStyles(styles)(withRouter(connect(mapStateToProps, mapDispatchToProps)))))(App);
+// export default withRouter(connect(mapStateToProps, mapDispatchToProps)(withStyles(styles, { withTheme: true })(injectIntl(App))))
