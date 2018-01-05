@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /**
  *
  * SignIn
@@ -8,11 +9,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Paper from 'material-ui/Paper';
+import { withTheme, withStyles } from 'material-ui/styles';
 import Grid from 'material-ui/Grid';
+import Hidden from 'material-ui/Hidden';
 import Typography from 'material-ui/Typography';
-import { withStyles } from 'material-ui/styles/index';
 import { Helmet } from 'react-helmet';
-import { FormattedMessage } from 'react-intl';
+// import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 
@@ -22,80 +24,16 @@ import { makeSelectIsLoggedIn } from './selectors';
 import reducer from './reducer';
 // import saga from './saga';
 import zwapLogo from '../../images/ZwapLogoRGB_1_340x100.png';
-import messages from './messages';
+// import messages from './messages';
 // import { changeUsername } from '../HomePage/actions'
 import { defaultAction } from './actions';
 // import bgImageAsHK from '../../images/bg/ocean.jpg';
 // import BackgroundImage from 'react-background-image-loader';
+import WizardForm from './forms/index';
+import styles from './styles';
+import Footer from '../../components/FooterSmaller';
 
 // let imgUrl = 'images/hk.jpg';
-
-const styles = (theme) => ({
-  rootDiv: {
-    // backgroundImage: `url(${bgImageAsHK})`,
-    // backgroundSize: 'cover',
-    // overflow: 'hidden',
-    // width: '100%',
-    // height: '100%',
-    // position: 'fixed',
-    // display: 'flex',
-    // JustifyContent: 'center',
-    // objectFit: 'cover',
-  },
-  imageDiv: {
-    height: '100%',
-    backgroundSize: 'cover',
-    overflow: 'hidden',
-  },
-  paperDiv: {
-    margin: 'auto',
-    height: 'auto',
-    width: 'auto',
-    verticalAlign: 'middle',
-    JustifyContent: 'center',
-    padding: 50,
-    color: theme.palette.text.secondary,
-  },
-  signInContainer: {
-    height: 'auto',
-    position: 'absolute',
-    top: '15%',
-    left: 10,
-    right: 10,
-    margin: 'auto',
-    maxWidth: 460,
-    minHeight: 640,
-  },
-  signInPaper: {
-    padding: 42,
-    textAlign: 'left',
-    color: theme.palette.text.secondary,
-  },
-  paddingTop: {
-    paddingTop: 90,
-  },
-  logoImage: {
-    margin: 'auto',
-    // textAlign: 'left',
-    // width: '100%',
-    height: 120,
-    verticalAlign: 'center',
-    // horizontalAlign: 'center',
-    // textAlign: 'center',
-    // display: 'block',
-    paddingTop: 0,
-    paddingBottom: 56,
-  },
-  flex: {
-    flex: 1,
-  },
-  subDiv: {
-    paddingLeft: 6,
-  },
-  center: {
-    textAlign: 'center',
-  },
-});
 
 export class SignIn extends React.Component { // eslint-disable-line react/prefer-stateless-function
 
@@ -103,8 +41,20 @@ export class SignIn extends React.Component { // eslint-disable-line react/prefe
     this.props.myFakeBoy();
   }
 
+  handleSubmit = (values) => {
+    console.log('haha..');
+    console.log(values.toJS());
+  }
+
   render() {
-    const { classes } = this.props;
+    const { classes, theme } = this.props;
+
+    const innerStyles = {
+      displayPaper: theme.breakpoints.down('sm'),
+    };
+
+    console.log(innerStyles.displayPaper);
+
     return (
       <div className={classes.rootDiv}>
         <Helmet>
@@ -114,24 +64,30 @@ export class SignIn extends React.Component { // eslint-disable-line react/prefe
         <div className={classes.signInContainer}>
           <Grid container spacing={24}>
             <Grid item xs={12} sm={12}>
-              <Paper className={classes.signInPaper}>
-                {/* <Typography type="title" color="inherit" className={this.props.classes.flex} gutterBottom> */}
-                {/* <a href="https://www.zwap.hk"> */}
-                <div className={classes.center}>
-                  <img className={this.props.classes.logoImage} src={zwapLogo} alt="zwapLogo" />
-                </div>
-                {/* </a> */}
-                {/* </Typography> */}
-                {/* <div className={classes.subDiv}> */}
-                <Typography type="title" component="h3" gutterBottom>
-                  Sign In
-                </Typography>
-                <Typography component="body1" gutterBottom className={classes.paddingTop}>
-                  <FormattedMessage {...messages.header} />
-                  {this.props.isLoggedIn ? <div>yes, logged in already</div> : <div>not logged in yet</div>}
-                </Typography>
-                {/* </div> */}
-              </Paper>
+              <Hidden xsDown>
+                <Paper className={classes.signInPaper}>
+                  {/* <Typography type="title" color="inherit" className={this.props.classes.flex} gutterBottom> */}
+                  {/* <a href="https://www.zwap.hk"> */}
+                  <div>
+                    <img className={this.props.classes.logoImage} src={zwapLogo} alt="zwapLogo" />
+                  </div>
+                  {/* </a> */}
+                  {/* </Typography> */}
+                  {/* <div className={classes.subDiv}> */}
+                  <Typography type="headline" gutterBottom>
+                    Sign in
+                  </Typography>
+                  <WizardForm onSubmit={this.handleSubmit} />
+                  {/* <Typography component="body1" gutterBottom className={classes.paddingTop}> */}
+                  {/* <FormattedMessage {...messages.header} /> */}
+                  {/* {this.props.isLoggedIn ? <div>yes, logged in already</div> : <div>not logged in yet</div>} */}
+                  {/* </Typography> */}
+                  {/* </div> */}
+                </Paper>
+              </Hidden>
+              <div>
+                <Footer />
+              </div>
             </Grid>
           </Grid>
         </div>
@@ -142,8 +98,9 @@ export class SignIn extends React.Component { // eslint-disable-line react/prefe
 
 SignIn.propTypes = {
   myFakeBoy: PropTypes.func.isRequired,
-  isLoggedIn: PropTypes.bool.isRequired,
+  // isLoggedIn: PropTypes.bool.isRequired,
   classes: PropTypes.object,
+  theme: PropTypes.object,
 };
 //
 const mapStateToProps = createStructuredSelector({
@@ -169,5 +126,6 @@ export default compose(
   withReducer,
   withStyles(styles),
   // withSaga,
+  withTheme(),
   withConnect,
 )(SignIn);

@@ -10,18 +10,18 @@ const Wrapper = styled.footer`
   // text-align: center;
   // bottom:0;
   //  width:100%;
-   // height:60px;   /* Height of the footer */
-   // background:#6cf;
+  // height:60px;   /* Height of the footer */
+  // background:#6cf;
   display: flex;
   justify-content: space-between;
-  padding: 1em 0;
-  padding-left: 1em;
+  vertical-align: middle;
+  // padding: 1em 0;
+  // padding-left: 1em;
   // padding-top: 0em;
-  margin-top: 1em;
+  // margin-top: 0.5em;
   // text-align: center;
   // margin-left: 5em;
-  border-top: 1px solid #666;
-  vertical-align: middle;
+  // border-top: 1px solid #666;
 `;
 
 export default Wrapper;
