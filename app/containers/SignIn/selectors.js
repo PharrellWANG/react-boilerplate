@@ -39,7 +39,13 @@ const makeSelectIsLoggedIn = () => createSelector(
   (subState) => subState.get('isLoggedIn')
 );
 
+const makeSelectFormPageNumber = () => createSelector(
+  selectSignInDomain,
+  (subState) => subState.get('formPageNumber')
+);
+
 export {
   makeSelectIsLoggedIn,
   selectSignInDomain,
+  makeSelectFormPageNumber,
 };

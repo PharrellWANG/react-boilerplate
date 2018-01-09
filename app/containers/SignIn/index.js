@@ -20,13 +20,21 @@ import { compose } from 'redux';
 
 // import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import { makeSelectIsLoggedIn } from './selectors';
+import {
+  makeSelectIsLoggedIn,
+  makeSelectFormPageNumber,
+} from './selectors';
 import reducer from './reducer';
 // import saga from './saga';
 import zwapLogo from '../../images/ZwapLogoRGB_1_340x100.png';
 // import messages from './messages';
 // import { changeUsername } from '../HomePage/actions'
-import { defaultAction } from './actions';
+import {
+  defaultAction,
+  checkEmailInSignInForm,
+  nextPage,
+  previousPage,
+} from './actions';
 // import bgImageAsHK from '../../images/bg/ocean.jpg';
 // import BackgroundImage from 'react-background-image-loader';
 import WizardForm from './forms/index';
@@ -42,18 +50,23 @@ export class SignIn extends React.Component { // eslint-disable-line react/prefe
   }
 
   handleSubmit = (values) => {
-    console.log('haha..');
+    console.log('Here is the submitted values in the form: >>>>');
     console.log(values.toJS());
   }
 
   render() {
-    const { classes, theme } = this.props;
+    const { classes, formPage, checkEmail, goPreviousPage } = this.props;
 
-    const innerStyles = {
-      displayPaper: theme.breakpoints.down('sm'),
+    const formProps = {
+      paddingTop: classes.paddingTop,
+      buttonNextGroup: classes.buttonNextGroup,
+      createAccount: classes.createAccount,
+      buttonNextStepDivRight: classes.buttonNextStepDivRight,
+      onSubmit: this.handleSubmit,
+      formPage,
+      checkEmail,
+      goPreviousPage,
     };
-
-    console.log(innerStyles.displayPaper);
 
     return (
       <div className={classes.rootDiv}>
@@ -66,24 +79,25 @@ export class SignIn extends React.Component { // eslint-disable-line react/prefe
             <Grid item xs={12} sm={12}>
               <Hidden xsDown>
                 <Paper className={classes.signInPaper}>
-                  {/* <Typography type="title" color="inherit" className={this.props.classes.flex} gutterBottom> */}
-                  {/* <a href="https://www.zwap.hk"> */}
                   <div>
                     <img className={this.props.classes.logoImage} src={zwapLogo} alt="zwapLogo" />
                   </div>
-                  {/* </a> */}
-                  {/* </Typography> */}
-                  {/* <div className={classes.subDiv}> */}
                   <Typography type="headline" gutterBottom>
                     Sign in
                   </Typography>
-                  <WizardForm onSubmit={this.handleSubmit} />
-                  {/* <Typography component="body1" gutterBottom className={classes.paddingTop}> */}
-                  {/* <FormattedMessage {...messages.header} /> */}
-                  {/* {this.props.isLoggedIn ? <div>yes, logged in already</div> : <div>not logged in yet</div>} */}
-                  {/* </Typography> */}
-                  {/* </div> */}
+                  <WizardForm {...formProps} />
                 </Paper>
+              </Hidden>
+              <Hidden smUp>
+                <div>
+                  <div>
+                    <img className={this.props.classes.logoImage} src={zwapLogo} alt="zwapLogo" />
+                  </div>
+                  <Typography type="headline" gutterBottom>
+                    Sign in
+                  </Typography>
+                  <WizardForm {...formProps} />
+                </div>
               </Hidden>
               <div>
                 <Footer />
@@ -98,19 +112,32 @@ export class SignIn extends React.Component { // eslint-disable-line react/prefe
 
 SignIn.propTypes = {
   myFakeBoy: PropTypes.func.isRequired,
+  checkEmail: PropTypes.func.isRequired,
+  goPreviousPage: PropTypes.func.isRequired,
   // isLoggedIn: PropTypes.bool.isRequired,
+  formPage: PropTypes.number.isRequired,
   classes: PropTypes.object,
-  theme: PropTypes.object,
+  // theme: PropTypes.object,
 };
 //
 const mapStateToProps = createStructuredSelector({
   isLoggedIn: makeSelectIsLoggedIn(),
+  formPage: makeSelectFormPageNumber(),
 });
 //
 export function mapDispatchToProps(dispatch) {
   return {
     myFakeBoy: () => {
       dispatch(defaultAction());
+    },
+    checkEmail: (email) => {
+      dispatch(checkEmailInSignInForm(email));
+    },
+    goNextPage: () => {
+      dispatch(nextPage());
+    },
+    goPreviousPage: () => {
+      dispatch(previousPage());
     },
   };
 }

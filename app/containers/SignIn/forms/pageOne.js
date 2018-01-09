@@ -13,10 +13,16 @@ import validate from './validate';
 import renderTextField from '../../../components/Fields/renderTextField';
 
 const WizardFormFirstPage = (props) => {
-  const { handleSubmit, classes } = props;
+  const {
+    checkEmail,
+    paddingTop,
+    buttonNextGroup,
+    createAccount,
+    buttonNextStepDivRight,
+  } = props;
   return (
-    <form onSubmit={handleSubmit}>
-      <div className={classes.paddingTop}>
+    <form onSubmit={checkEmail}>
+      <div className={paddingTop}>
         <Field
           name="firstName"
           fullWidth
@@ -27,15 +33,15 @@ const WizardFormFirstPage = (props) => {
           label="First Name"
         />
       </div>
-      <div className={classes.buttonNextGroup}>
+      <div className={buttonNextGroup}>
         <Grid container spacing={24}>
           <Grid item xs={6} sm={6}>
-            <Typography className={classes.createAccount} type="body2" gutterBottom>
+            <Typography className={createAccount} type="body2" gutterBottom>
               Create account
             </Typography>
           </Grid>
           <Grid item xs={6} sm={6}>
-            <div className={classes.buttonNextStepDivRight}>
+            <div className={buttonNextStepDivRight}>
               <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
                 <RaisedButton
                   label="Next"

@@ -1,4 +1,4 @@
-/* eslint-disable no-console */
+/* eslint-disable no-console,react/prefer-stateless-function */
 /* eslint react/prop-types: 0 */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
@@ -6,42 +6,35 @@ import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import WizardFormFirstPage from './pageOne';
 import WizardFormSecondPage from './pageTwo';
-import WizardFormThirdPage from './pageThree';
+// import WizardFormThirdPage from './pageThree';pageThree
 import styles from './styles';
 
 class WizardForm extends Component {
-  constructor(props) {
-    super(props);
-    this.nextPage = this.nextPage.bind(this);
-    this.previousPage = this.previousPage.bind(this);
-    this.state = {
-      page: 1,
-    };
-  }
-  nextPage() {
-    console.log('really');
-    this.setState({ page: this.state.page + 1 });
-  }
-
-  previousPage() {
-    this.setState({ page: this.state.page - 1 });
-  }
-
   render() {
-    const { onSubmit, classes } = this.props;
-    const { page } = this.state;
+    const {
+      onSubmit,
+      paddingTop,
+      buttonNextGroup,
+      createAccount,
+      buttonNextStepDivRight,
+      formPage,
+      goPreviousPage,
+      checkEmail,
+    } = this.props;
+
     return (
       <div>
-        {page === 1 && <WizardFormFirstPage onSubmit={this.nextPage} classes={classes} />}
-        {page === 2 && (
+        {formPage === 1 &&
+        <WizardFormFirstPage
+          onSubmit={checkEmail}
+          paddingTop={paddingTop}
+          buttonNextGroup={buttonNextGroup}
+          createAccount={createAccount}
+          buttonNextStepDivRight={buttonNextStepDivRight}
+        />}
+        {formPage === 2 && (
           <WizardFormSecondPage
-            previousPage={this.previousPage}
-            onSubmit={this.nextPage}
-          />
-        )}
-        {page === 3 && (
-          <WizardFormThirdPage
-            previousPage={this.previousPage}
+            previousPage={goPreviousPage}
             onSubmit={onSubmit}
           />
         )}
