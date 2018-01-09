@@ -3,6 +3,7 @@ import React from 'react';
 import { fromJS } from 'immutable';
 import Grid from 'material-ui/Grid';
 import Typography from 'material-ui/Typography';
+import { CircularProgress } from 'material-ui/Progress';
 // import Button from 'material-ui/Button';
 import MuiThemeProvider from 'material-ui-previous/styles/MuiThemeProvider';
 import lightBaseTheme from 'material-ui-previous/styles/baseThemes/lightBaseTheme';
@@ -14,23 +15,26 @@ import renderTextField from '../../../components/Fields/renderTextField';
 
 const WizardFormFirstPage = (props) => {
   const {
-    checkEmail,
+    handleSubmit,
     paddingTop,
     buttonNextGroup,
     createAccount,
     buttonNextStepDivRight,
+    showProgressIndicator,
+    buttonProgressWrapper,
+    absoluteProgress,
   } = props;
   return (
-    <form onSubmit={checkEmail}>
+    <form onSubmit={handleSubmit}>
       <div className={paddingTop}>
         <Field
-          name="firstName"
+          name="signInEmail"
           fullWidth
           underlineStyle={{ borderColor: '#6f6e6b' }}
           underlineFocusStyle={{ borderColor: '#00b0c1' }}
           component={renderTextField}
           autoFocus
-          label="First Name"
+          label="Email"
         />
       </div>
       <div className={buttonNextGroup}>
@@ -42,14 +46,18 @@ const WizardFormFirstPage = (props) => {
           </Grid>
           <Grid item xs={6} sm={6}>
             <div className={buttonNextStepDivRight}>
-              <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
-                <RaisedButton
-                  label="Next"
-                  labelColor="#ffffff"
-                  backgroundColor="#00b0c1"
-                  type="submit"
-                />
-              </MuiThemeProvider>
+              <div className={buttonProgressWrapper}>
+                <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
+                  <RaisedButton
+                    label="Next"
+                    labelColor="#ffffff"
+                    backgroundColor="#00b0c1"
+                    type="submit"
+                    disabled={showProgressIndicator}
+                  />
+                </MuiThemeProvider>
+                {showProgressIndicator && <CircularProgress size={28} className={absoluteProgress} thickness={8} />}
+              </div>
             </div>
           </Grid>
         </Grid>
@@ -64,6 +72,7 @@ export default reduxForm({
   forceUnregisterOnUnmount: true, // <------ unregister fields on unmount
   initialValues: fromJS({
     employed: 1,
+    // signInEmail: 'default email null',
   }),
   validate,
 })(WizardFormFirstPage);

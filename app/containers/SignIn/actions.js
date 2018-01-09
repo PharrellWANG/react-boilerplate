@@ -9,6 +9,8 @@ import {
   CHECK_EMAIL_IN_SIGN_IN_FORM,
   GO_TO_NEXT_FORM_PAGE,
   GO_TO_PREVIOUS_FORM_PAGE,
+  SHOW_PROGRESS_INDICATOR,
+  HIDE_PROGRESS_INDICATOR,
 } from './constants';
 
 export function defaultAction() {
@@ -33,5 +35,17 @@ export function nextPage() {
 export function previousPage() {
   return {
     type: GO_TO_PREVIOUS_FORM_PAGE,
+  };
+}
+
+export function showProgressIndicator() {
+  return {
+    type: SHOW_PROGRESS_INDICATOR,
+  };
+}
+
+export function hideProgressIndicator() {
+  return {
+    type: HIDE_PROGRESS_INDICATOR,
   };
 }

@@ -39,12 +39,18 @@ const makeSelectIsLoggedIn = () => createSelector(
   (subState) => subState.get('isLoggedIn')
 );
 
+const makeSelectProgressIndicator = () => createSelector(
+  selectSignInDomain,
+  (subState) => subState.get('progressIndicator')
+);
+
 const makeSelectFormPageNumber = () => createSelector(
   selectSignInDomain,
   (subState) => subState.get('formPageNumber')
 );
 
 export {
+  makeSelectProgressIndicator,
   makeSelectIsLoggedIn,
   selectSignInDomain,
   makeSelectFormPageNumber,

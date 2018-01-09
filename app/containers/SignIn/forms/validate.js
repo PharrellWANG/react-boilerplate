@@ -1,12 +1,12 @@
 /* eslint-disable no-console */
 const validate = (values) => {
   const errors = {};
-  console.log('------');
+  // console.log('------');
   // console.log(values.firstName);
-  console.log(values.get('firstName'));
+  // console.log(values.get('signInEmail'));
   // console.log(values.toJS());
-  if (!values.get('firstName')) {
-    errors.firstName = 'Required';
+  if (!values.get('signInEmail')) {
+    errors.signInEmail = 'required';
   }
   // if (!values.get('lastName')) {
   //   errors.lastName = 'Required';

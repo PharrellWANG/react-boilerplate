@@ -29,6 +29,7 @@ const styles = (theme) => ({
   signInContainer: {
     height: 'auto',
     position: 'absolute',
+    // position: 'relative',
     top: '3%',
     left: 10,
     right: 10,
@@ -37,13 +38,22 @@ const styles = (theme) => ({
     // minHeight: 640,
   },
   signInPaper: {
-    padding: 12,
+    padding: 8,
     // elevation: 10,
     textAlign: 'left',
     color: theme.palette.text.secondary,
     [theme.breakpoints.up('sm')]: {
       padding: 42,
     },
+  },
+  signInPaperOuter: {
+    // padding: 12,
+    // elevation: 10,
+    // textAlign: 'left',
+    color: theme.palette.text.secondary,
+    // [theme.breakpoints.up('sm')]: {
+    //   padding: 42,
+    // },
   },
   // paddingTop: {
   //   paddingTop: 90,
@@ -125,11 +135,11 @@ const styles = (theme) => ({
     top: '50%',
     left: '50%',
     marginTop: -12,
-    marginLeft: -12,
+    marginLeft: 18,
   },
-  xWrapper: {
-    margin: theme.spacing.unit,
-    position: 'relative',
+  absoluteProgressX: {
+    position: 'absolute',
+    top: 2,
   },
   formControl: {
     // margin: theme.spacing.unit,
@@ -190,6 +200,15 @@ const styles = (theme) => ({
     paddingTop: 4,
     color: '#00b0c1',
     fontSize: 16,
+  },
+  marginOnSmallScreen: {
+    marginTop: 18,
+    marginLeft: 18,
+    marginRight: 18,
+  },
+  buttonProgressWrapper: {
+    margin: theme.spacing.unit,
+    position: 'relative',
   },
 });
 
