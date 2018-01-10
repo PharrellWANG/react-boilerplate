@@ -30,7 +30,7 @@ const WizardFormSecondPage = (props) => {
   } = props;
   return (
     <form onSubmit={handleSubmit}>
-      <Typography type="headline" gutterBottom>
+      <Typography type="subheading" gutterBottom>
         Welcome, xxx
       </Typography>
       <div className={paddingTop}>
