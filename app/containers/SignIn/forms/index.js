@@ -1,9 +1,9 @@
 /* eslint-disable no-console,react/prefer-stateless-function,import/no-mutable-exports */
 /* eslint react/prop-types: 0 */
 import React from 'react';
-// import { connect } from 'react-redux';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-// import { formValueSelector } from 'redux-form/immutable';
+import { formValueSelector } from 'redux-form/immutable';
 // import { green } from 'material-ui/colors';
 // import { withStyles } from 'material-ui/styles';
 import WizardFormFirstPage from './pageOne';
@@ -11,7 +11,7 @@ import WizardFormSecondPage from './pageTwo';
 // import WizardFormThirdPage from './pageThree';pageThree
 // import styles from './styles';
 
-const WizardForm = (props) => {
+let WizardForm = (props) => {
   const {
     onSubmit,
     paddingTop,
@@ -27,7 +27,10 @@ const WizardForm = (props) => {
     showProgressIndicator,
     absoluteProgress,
     buttonProgressWrapper,
-    // signInEmail,
+    makeSelectPwVisi,
+    togglePwVisiAction,
+    signInEmail,
+    hintMsgId,
   } = props;
 
   // console.log(typeof (checkEmail));
@@ -36,6 +39,7 @@ const WizardForm = (props) => {
     <div>
       {formPage === 1 &&
       <WizardFormFirstPage
+        hintMsgId={hintMsgId}
         signUpButton={signUpButton}
         onSubmit={checkEmail}
         paddingTop={paddingTop}
@@ -48,6 +52,9 @@ const WizardForm = (props) => {
       />}
       {formPage === 2 && (
         <WizardFormSecondPage
+          signInEmail={signInEmail}
+          makeSelectPwVisi={makeSelectPwVisi}
+          togglePwVisiAction={togglePwVisiAction}
           buttonNextGroup={buttonNextGroup}
           pwVisiWrapper={pwVisiWrapper}
           pwVisiControlButton={pwVisiControlButton}
@@ -70,17 +77,17 @@ WizardForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
 };
 
-// const selector = formValueSelector('wizard'); // <-- same as form name
-// WizardForm = connect((state) => {
+const selector = formValueSelector('wizard'); // <-- same as form name
+WizardForm = connect((state) => {
 //   // can select values individually
-//   const signInEmail = selector(state, 'signInEmail');
+  const signInEmail = selector(state, 'signInEmail');
 //   console.log('sign in email value:');
 //   console.log(signInEmail);
-//   return {
-//     signInEmail,
+  return {
+    signInEmail,
 //     // favoriteColorValue,
 //     // fullName: `${firstName || ''} ${lastName || ''}`,
-//   };
-// })(WizardForm);
+  };
+})(WizardForm);
 
 export default WizardForm;

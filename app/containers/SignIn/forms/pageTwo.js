@@ -5,6 +5,7 @@ import Typography from 'material-ui/Typography';
 import IconButton from 'material-ui/IconButton';
 import { CircularProgress } from 'material-ui/Progress';
 import Visibility from 'material-ui-icons/Visibility';
+import VisibilityOff from 'material-ui-icons/VisibilityOff';
 // import VisibilityOff from 'material-ui-icons/VisibilityOff';
 import Button from 'material-ui/Button';
 import MuiThemeProvider from 'material-ui-previous/styles/MuiThemeProvider';
@@ -14,6 +15,7 @@ import RaisedButton from 'material-ui-previous/RaisedButton';
 import { Field, reduxForm } from 'redux-form/immutable';
 import validate from './validate';
 import renderPwField from '../../../components/Fields/renderPwField';
+import renderTextField from '../../../components/Fields/renderTextField';
 
 const WizardFormSecondPage = (props) => {
   const {
@@ -27,28 +29,49 @@ const WizardFormSecondPage = (props) => {
     pwVisiControlButton,
     pwVisiWrapper,
     absoluteProgress,
+    makeSelectPwVisi,
+    togglePwVisiAction,
+    signInEmail,
   } = props;
   return (
     <form onSubmit={handleSubmit}>
-      <Typography type="subheading" gutterBottom>
-        Welcome, xxx
-      </Typography>
+      <div style={{ height: 96 }}>
+        <Typography type="headline" gutterBottom>
+          Welcome
+        </Typography>
+        <Typography type="body1" gutterBottom>
+          {signInEmail}
+        </Typography>
+      </div>
       <div className={paddingTop}>
         <div className={buttonProgressWrapper}>
-          <Field
-            name="password"
-            fullWidth
-            underlineStyle={{ borderColor: '#6f6e6b' }}
-            underlineFocusStyle={{ borderColor: '#00b0c1' }}
-            floatingLabelText="Enter your password"
-            component={renderPwField}
-            autoFocus
-            // commend below line to make the user interface more clean
-            // label="Enter your password"
-          />
+          { !makeSelectPwVisi ?
+            <Field
+              name="password"
+              fullWidth
+              underlineStyle={{ borderColor: '#6f6e6b' }}
+              underlineFocusStyle={{ borderColor: '#00b0c1' }}
+              floatingLabelText="Enter your password"
+              component={renderPwField}
+              autoFocus
+              // commend below line to make the user interface more clean
+              // label="Enter your password"
+            /> :
+            <Field
+              name="password"
+              fullWidth
+              underlineStyle={{ borderColor: '#6f6e6b' }}
+              underlineFocusStyle={{ borderColor: '#00b0c1' }}
+              floatingLabelText="Enter your password"
+              component={renderTextField}
+              autoFocus
+              // commend below line to make the user interface more clean
+              // label="Enter your password"
+            />
+          }
           <div className={pwVisiWrapper}>
-            <IconButton className={pwVisiControlButton}>
-              <Visibility />{/* {this.state.showPassword ? <VisibilityOff /> : <Visibility />} */}
+            <IconButton className={pwVisiControlButton} onClick={togglePwVisiAction}>
+              { makeSelectPwVisi ? <VisibilityOff /> : <Visibility /> }
             </IconButton>
           </div>
         </div>

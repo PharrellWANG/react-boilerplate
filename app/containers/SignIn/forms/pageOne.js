@@ -26,12 +26,30 @@ const WizardFormFirstPage = (props) => {
     showProgressIndicator,
     buttonProgressWrapper,
     absoluteProgress,
+    hintMsgId,
   } = props;
+
+  let hintMsg;
+  if (hintMsgId === 1) {
+    hintMsg = 'A new account activation email has been sent. Please verify your email before sign in.';
+  } else if (hintMsgId === 3) {
+    hintMsg = 'We cannot find your account. Please sign up.We cannot find your account. Please sign up.ount. Please sign up.ount. Please sign up.t. Please sign up.';
+  } else if (hintMsgId === 4) {
+    hintMsg = 'Welcome back. An account activation email has been sent. To help us secure your account, please verify your email before sign in.';
+  } else if (hintMsgId === 5) {
+    hintMsg = 'Your account has been locked due to 10 times password input failure. An email has been sent to you, please unlock your account before sign in.';
+  }
   return (
     <form onSubmit={handleSubmit}>
-      <Typography type="headline" gutterBottom>
-        Sign in
-      </Typography>
+      <div style={{ height: 96 }}>
+        <Typography type="headline" gutterBottom>
+          Sign in
+        </Typography>
+        {/* todo: replace this whole part into hintMsg for customized color */}
+        <Typography type="body1" gutterBottom style={{ color: '#ff7075' }}>
+          {hintMsg}
+        </Typography>
+      </div>
       <div className={paddingTop}>
         <Field
           name="signInEmail"

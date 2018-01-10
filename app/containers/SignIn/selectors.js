@@ -44,6 +44,16 @@ const makeSelectProgressIndicator = () => createSelector(
   (subState) => subState.get('progressIndicator')
 );
 
+const makeSelectPwFieldVisible = () => createSelector(
+  selectSignInDomain,
+  (subState) => subState.get('pwFieldVisible')
+);
+
+const makeSelecthintMsgId = () => createSelector(
+  selectSignInDomain,
+  (subState) => subState.get('hintMsgId')
+);
+
 const makeSelectFormPageNumber = () => createSelector(
   selectSignInDomain,
   (subState) => subState.get('formPageNumber')
@@ -51,7 +61,9 @@ const makeSelectFormPageNumber = () => createSelector(
 
 export {
   makeSelectProgressIndicator,
+  makeSelectPwFieldVisible,
   makeSelectIsLoggedIn,
+  makeSelecthintMsgId,
   selectSignInDomain,
   makeSelectFormPageNumber,
 };

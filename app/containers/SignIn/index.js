@@ -25,6 +25,8 @@ import {
   makeSelectIsLoggedIn,
   makeSelectFormPageNumber,
   makeSelectProgressIndicator,
+  makeSelectPwFieldVisible,
+  makeSelecthintMsgId,
   // selectEmail,
 } from './selectors';
 import reducer from './reducer';
@@ -37,6 +39,7 @@ import {
   nextPage,
   previousPage,
   checkEmailInSignInForm,
+  togglePwFieldVisibility,
 } from './actions';
 // import bgImageAsHK from '../../images/bg/ocean.jpg';
 // import BackgroundImage from 'react-background-image-loader';
@@ -58,7 +61,16 @@ export class SignIn extends React.Component { // eslint-disable-line react/prefe
   }
 
   render() {
-    const { classes, formPage, goPreviousPage, checkEmail, showProgressIndicator } = this.props;
+    const {
+      classes,
+      formPage,
+      goPreviousPage,
+      checkEmail,
+      showProgressIndicator,
+      makeSelectPwVisi,
+      togglePwVisiAction,
+      hintMsgId,
+    } = this.props;
 
     const formProps = {
       paddingTop: classes.paddingTop,
@@ -71,10 +83,13 @@ export class SignIn extends React.Component { // eslint-disable-line react/prefe
       signUpButton: classes.signUpButton,
       pwVisiWrapper: classes.pwVisiWrapper,
       onSubmit: this.handleSubmit,
+      hintMsgId,
       formPage,
       checkEmail,
       goPreviousPage,
       showProgressIndicator,
+      makeSelectPwVisi,
+      togglePwVisiAction,
     };
 
     return (
@@ -120,8 +135,11 @@ SignIn.propTypes = {
   checkEmail: PropTypes.func.isRequired,
   showProgressIndicator: PropTypes.bool.isRequired,
   goPreviousPage: PropTypes.func.isRequired,
+  makeSelectPwVisi: PropTypes.bool.isRequired,
+  togglePwVisiAction: PropTypes.func.isRequired,
   // isLoggedIn: PropTypes.bool.isRequired,
   formPage: PropTypes.number.isRequired,
+  hintMsgId: PropTypes.number.isRequired,
   classes: PropTypes.object,
   // selectEmail: PropTypes.func.isRequired,
   // theme: PropTypes.object,
@@ -131,6 +149,8 @@ const mapStateToProps = createStructuredSelector({
   isLoggedIn: makeSelectIsLoggedIn(),
   formPage: makeSelectFormPageNumber(),
   showProgressIndicator: makeSelectProgressIndicator(),
+  makeSelectPwVisi: makeSelectPwFieldVisible(),
+  hintMsgId: makeSelecthintMsgId(),
   // selectEmail: selectEmail(),
 });
 //
@@ -153,6 +173,9 @@ export function mapDispatchToProps(dispatch) {
     },
     goPreviousPage: () => {
       dispatch(previousPage());
+    },
+    togglePwVisiAction: () => {
+      dispatch(togglePwFieldVisibility());
     },
   };
 }
