@@ -19,7 +19,10 @@ const WizardForm = (props) => {
     createAccount,
     buttonNextStepDivRight,
     formPage,
+    signUpButton,
     goPreviousPage,
+    pwVisiControlButton,
+    pwVisiWrapper,
     checkEmail,
     showProgressIndicator,
     absoluteProgress,
@@ -33,6 +36,7 @@ const WizardForm = (props) => {
     <div>
       {formPage === 1 &&
       <WizardFormFirstPage
+        signUpButton={signUpButton}
         onSubmit={checkEmail}
         paddingTop={paddingTop}
         buttonNextGroup={buttonNextGroup}
@@ -44,6 +48,15 @@ const WizardForm = (props) => {
       />}
       {formPage === 2 && (
         <WizardFormSecondPage
+          buttonNextGroup={buttonNextGroup}
+          pwVisiWrapper={pwVisiWrapper}
+          pwVisiControlButton={pwVisiControlButton}
+          createAccount={createAccount}
+          buttonNextStepDivRight={buttonNextStepDivRight}
+          showProgressIndicator={showProgressIndicator}
+          absoluteProgress={absoluteProgress}
+          buttonProgressWrapper={buttonProgressWrapper}
+          paddingTop={paddingTop}
           previousPage={goPreviousPage}
           onSubmit={onSubmit}
         />

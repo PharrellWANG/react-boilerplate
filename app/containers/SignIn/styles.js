@@ -34,7 +34,7 @@ const styles = (theme) => ({
     left: 10,
     right: 10,
     margin: 'auto',
-    maxWidth: 460,
+    maxWidth: 400,
     // minHeight: 640,
   },
   signInPaper: {
@@ -137,6 +137,25 @@ const styles = (theme) => ({
     marginTop: -12,
     marginLeft: 18,
   },
+  pwVisiControlButton: {
+    position: 'relative',
+    top: '50%',
+    // left: '88%',
+    // marginTop: -12,
+    // zIndex: 1,
+    // marginLeft: 210,
+    // paddingRight: 10,
+  },
+  pwVisiWrapper: {
+    position: 'absolute',
+    top: '50%',
+    right: -9,
+    // left: '88%',
+    marginTop: -12,
+    // zIndex: 1,
+    // marginLeft: 260,
+    // paddingRight: 10,
+  },
   absoluteProgressX: {
     position: 'absolute',
     top: 2,
@@ -205,10 +224,21 @@ const styles = (theme) => ({
     marginTop: 18,
     marginLeft: 18,
     marginRight: 18,
+    // maxWidth: 360,
   },
   buttonProgressWrapper: {
-    margin: theme.spacing.unit,
+    // margin: theme.spacing.unit,
     position: 'relative',
+  },
+  signUpButton: {
+    background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
+    // background: 'linear-gradient(45deg, #00b0c1 30%, #FF8E53 90%)',
+    borderRadius: 3,
+    border: 0,
+    color: 'white',
+    // height: 48,
+    // padding: '0 30px',
+    boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .30)',
   },
 });
 

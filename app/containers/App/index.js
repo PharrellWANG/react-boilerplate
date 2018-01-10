@@ -70,7 +70,7 @@ const theme = createMuiTheme({
   palette: {
     type: 'light', // Switching the dark mode on is a single property value change.
     // type: 'dark', // Switching the dark mode on is a single property value change.
-    logoPrimary: '#00b0c1',
+    // logoPrimary: '#00b0c1',
   },
   breakpoints: {
     keys: [
@@ -371,7 +371,8 @@ class App extends React.Component {
               : <div>
                 <Switch>
                   <Route exact path="/signin" component={SignIn} />
-                  <Route exact path="/signup" component={SignIn} />
+                  <Route exact path="/signup" component={NotFoundPage} />
+                  <Route path="*" component={NotFoundPage} />
                 </Switch>
               </div>
                 }

@@ -16,11 +16,12 @@ const renderPwField = ({
       <TextFieldPrevious
         type="password"
         // floatingLabelStyle={{ backgroundColor: '#d8efff', color: 'black' }}
-        floatingLabelStyle={{ color: '#7a7a7a' }}
+        // floatingLabelStyle={{ color: '#7a7a7a' }}
         errorStyle={{ textAlign: 'left' }}
-        hintText={label}
+        // hintText={label}
         floatingLabelText={label}
         errorText={touched && error}
+        floatingLabelStyle={{ color: '#7a7a7a', fontFamily: 'Roboto' }}
         {...input}
         {...custom}
       />

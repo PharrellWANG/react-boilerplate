@@ -2,9 +2,11 @@
 import React from 'react';
 import { fromJS } from 'immutable';
 import Grid from 'material-ui/Grid';
+import { Link } from 'react-router-dom';
 import Typography from 'material-ui/Typography';
 import { CircularProgress } from 'material-ui/Progress';
-// import Button from 'material-ui/Button';
+// import { Button } from 'material-ui/Button';
+import Button from 'material-ui/Button';
 import MuiThemeProvider from 'material-ui-previous/styles/MuiThemeProvider';
 import lightBaseTheme from 'material-ui-previous/styles/baseThemes/lightBaseTheme';
 import getMuiTheme from 'material-ui-previous/styles/getMuiTheme';
@@ -18,7 +20,8 @@ const WizardFormFirstPage = (props) => {
     handleSubmit,
     paddingTop,
     buttonNextGroup,
-    createAccount,
+    // createAccount,
+    signUpButton,
     buttonNextStepDivRight,
     showProgressIndicator,
     buttonProgressWrapper,
@@ -26,6 +29,9 @@ const WizardFormFirstPage = (props) => {
   } = props;
   return (
     <form onSubmit={handleSubmit}>
+      <Typography type="headline" gutterBottom>
+        Sign in
+      </Typography>
       <div className={paddingTop}>
         <Field
           name="signInEmail"
@@ -34,15 +40,20 @@ const WizardFormFirstPage = (props) => {
           underlineFocusStyle={{ borderColor: '#00b0c1' }}
           component={renderTextField}
           autoFocus
-          label="Email"
+          // label="Email"
+          floatingLabelText="Enter your email"
+          // floatingLabelFocusStyle={{ color: '#00b0c1', fontFamily: 'Roboto' }}
         />
       </div>
       <div className={buttonNextGroup}>
         <Grid container spacing={24}>
           <Grid item xs={6} sm={6}>
-            <Typography className={createAccount} type="body2" gutterBottom>
-              Create account
-            </Typography>
+            <div className={buttonProgressWrapper}>
+              <Button className={signUpButton} component={Link} to="/signup">
+                {/* <Button component={Link} to="/signup"> */}
+                Sign Up
+              </Button>
+            </div>
           </Grid>
           <Grid item xs={6} sm={6}>
             <div className={buttonNextStepDivRight}>

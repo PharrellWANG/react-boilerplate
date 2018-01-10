@@ -13,7 +13,7 @@ import { withTheme, withStyles } from 'material-ui/styles';
 import Grid from 'material-ui/Grid';
 import Hidden from 'material-ui/Hidden';
 // import { LinearProgress } from 'material-ui/Progress';
-import Typography from 'material-ui/Typography';
+// import Typography from 'material-ui/Typography';
 import { Helmet } from 'react-helmet';
 // import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
@@ -66,7 +66,10 @@ export class SignIn extends React.Component { // eslint-disable-line react/prefe
       createAccount: classes.createAccount,
       buttonNextStepDivRight: classes.buttonNextStepDivRight,
       buttonProgressWrapper: classes.buttonProgressWrapper,
+      pwVisiControlButton: classes.pwVisiControlButton,
       absoluteProgress: classes.absoluteProgress,
+      signUpButton: classes.signUpButton,
+      pwVisiWrapper: classes.pwVisiWrapper,
       onSubmit: this.handleSubmit,
       formPage,
       checkEmail,
@@ -89,9 +92,6 @@ export class SignIn extends React.Component { // eslint-disable-line react/prefe
                     <div>
                       <img className={this.props.classes.logoImage} src={zwapLogo} alt="zwapLogo" />
                     </div>
-                    <Typography type="headline" gutterBottom>
-                      Sign in
-                    </Typography>
                     <WizardForm {...formProps} />
                   </Paper>
                 </div>
@@ -101,9 +101,6 @@ export class SignIn extends React.Component { // eslint-disable-line react/prefe
                   <div>
                     <img className={this.props.classes.logoImage} src={zwapLogo} alt="zwapLogo" />
                   </div>
-                  <Typography type="headline" gutterBottom>
-                    Sign in
-                  </Typography>
                   <WizardForm {...formProps} />
                 </div>
               </Hidden>
