@@ -36,6 +36,9 @@ import IconButton from 'material-ui/IconButton';
 import List, { ListItemIcon, ListItemText } from 'material-ui/List';
 // import InboxIcon from 'material-ui-icons/MoveToInbox';
 import DraftsIcon from 'material-ui-icons/Drafts';
+// import purple from 'material-ui/colors/purple';
+import green from 'material-ui/colors/green';
+import red from 'material-ui/colors/red';
 // import StarIcon from 'material-ui-icons/Star';
 import SendIcon from 'material-ui-icons/Send';
 // import MailIcon from 'material-ui-icons/Mail';
@@ -57,7 +60,13 @@ const AppWrapper = styled.div`
 
 const theme = createMuiTheme({
   palette: {
-    type: 'light', // Switching the dark mode on is a single property value change.
+    primary: green,
+    secondary: {
+      ...green,
+      A400: '#00E677',
+    },
+    error: red,
+    // type: 'light', // Switching the dark mode on is a single property value change.
     // type: 'dark', // Switching the dark mode on is a single property value change.
   },
 });
