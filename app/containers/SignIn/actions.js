@@ -13,6 +13,7 @@ import {
   HIDE_PROGRESS_INDICATOR,
   TOGGLE_PW_FIELD_VISIBILITY,
   SET_HINT_MSG_ID,
+  SIGN_IN_REQUEST,
 } from './constants';
 
 export function defaultAction() {
@@ -62,5 +63,13 @@ export function setHintMsg(msgId) {
   return {
     type: SET_HINT_MSG_ID,
     msgId,
+  };
+}
+
+export function signIn(email, pw) {
+  return {
+    type: SIGN_IN_REQUEST,
+    email,
+    pw,
   };
 }

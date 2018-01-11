@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
-import { fromJS } from 'immutable';
+// import { fromJS } from 'immutable';
 import Grid from 'material-ui/Grid';
 import { Link } from 'react-router-dom';
 import Typography from 'material-ui/Typography';
@@ -110,9 +110,9 @@ export default reduxForm({
   form: 'wizard', // <------ same form name
   destroyOnUnmount: false, // <------ preserve form data
   forceUnregisterOnUnmount: true, // <------ unregister fields on unmount
-  initialValues: fromJS({
-    employed: 1,
+  // initialValues: fromJS({
+  //   employed: 1,
     // signInEmail: 'default email null',
-  }),
+  // }),
   validate,
 })(WizardFormFirstPage);

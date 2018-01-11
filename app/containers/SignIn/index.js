@@ -41,6 +41,7 @@ import {
   checkEmailInSignInForm,
   togglePwFieldVisibility,
   setHintMsg,
+  signIn,
 } from './actions';
 // import bgImageAsHK from '../../images/bg/ocean.jpg';
 // import BackgroundImage from 'react-background-image-loader';
@@ -57,8 +58,10 @@ export class SignIn extends React.Component { // eslint-disable-line react/prefe
   }
 
   handleSubmit = (values) => {
-    console.log('Here is the submitted values in the form: >>>>');
-    console.log(values.toJS());
+    console.log('Submitted values in the form: >>>>');
+    console.log(values.toJS().signInEmail);
+    console.log(values.toJS().password);
+    this.props.signInAction(values.toJS().signInEmail, values.toJS().password);
   }
 
   render() {
@@ -139,6 +142,7 @@ SignIn.propTypes = {
   showProgressIndicator: PropTypes.bool.isRequired,
   goPreviousPage: PropTypes.func.isRequired,
   setHintMsgAction: PropTypes.func.isRequired,
+  signInAction: PropTypes.func.isRequired,
   makeSelectPwVisi: PropTypes.bool.isRequired,
   togglePwVisiAction: PropTypes.func.isRequired,
   // isLoggedIn: PropTypes.bool.isRequired,
@@ -183,6 +187,9 @@ export function mapDispatchToProps(dispatch) {
     },
     setHintMsgAction: (msgId) => {
       dispatch(setHintMsg(msgId));
+    },
+    signInAction: (email, pw) => {
+      dispatch(signIn(email, pw));
     },
   };
 }
