@@ -33,7 +33,7 @@ const WizardFormFirstPage = (props) => {
   let hintJsx;
   if (hintMsgId === 1) {
     hintMsg = 'Please verify your email before sign in. (A new account activation email has been sent 📬.)';
-    hintJsx = (<Typography type="body1" gutterBottom style={{ color: '#c7a500' }}>
+    hintJsx = (<Typography type="body1" gutterBottom style={{ color: '#9b7e00' }}>
       {hintMsg}
     </Typography>);
   } else if (hintMsgId === 3) {
@@ -48,7 +48,7 @@ const WizardFormFirstPage = (props) => {
     </Typography>);
   } else if (hintMsgId === 5) {
     hintMsg = 'Please unlock 🔓 your account before sign in. (Your account has been locked due to 10 times password input failure. An email for unlocking account has been sent to you 📬,)';
-    hintJsx = (<Typography type="body1" gutterBottom style={{ color: '#c66900' }}>
+    hintJsx = (<Typography type="body1" gutterBottom style={{ color: '#8d4a00' }}>
       {hintMsg}
     </Typography>);
   }
