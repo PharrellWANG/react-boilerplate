@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import request from 'utils/request';
-import { delay } from 'redux-saga';
+// import { delay } from 'redux-saga';
 import { call, put, takeLatest } from 'redux-saga/effects';
 // import { call, takeLatest } from 'redux-saga/effects';
 import {
@@ -87,12 +87,12 @@ export function* checkEmailSaga(action) {
 }
 
 export function* signInSaga(action) {
-  console.log('===============signInSaga==========, action');
+  console.log('=====  signInSaga  ======, action');
   console.log(JSON.stringify({
     email: action.email,
     pw: action.pw,
   }));
-  const requestURL = 'http://127.0.0.1:8000/zwap/api/v2/check-email/';
+  const requestURL = 'http://127.0.0.1:8000/zwap/api/v2/sign-in/';
   // const requestURL = 'https://platform.zwap.hk/zwap-pay/check-if-account-exist/';
   const options = {
     method: 'POST',
@@ -106,13 +106,14 @@ export function* signInSaga(action) {
     },
   };
   try {
-    console.log('--------- Now start delaying...');
+    // console.log('--------- Now start delaying...');
     // yield put(showProgressIndicator());
-    yield call(delay, 500);
+    // yield call(delay, 500);
     const data = yield call(request, requestURL, options);
     // yield put(hideProgressIndicator());
-    console.log('--------- Delay end. 0.5 seconds');
+    // console.log('--------- Delay end. 0.5 seconds');
     // console.log('if status is 3, it should return a message ask the user to register first.', data.status);
+    console.log('--------- data from response: ****');
     console.log(data);
     console.log(typeof (data));
     // type number
