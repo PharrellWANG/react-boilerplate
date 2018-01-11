@@ -30,14 +30,27 @@ const WizardFormFirstPage = (props) => {
   } = props;
 
   let hintMsg;
+  let hintJsx;
   if (hintMsgId === 1) {
-    hintMsg = 'A new account activation email has been sent. Please verify your email before sign in.';
+    hintMsg = 'Please verify your email before sign in. (A new account activation email has been sent 📬.)';
+    hintJsx = (<Typography type="body1" gutterBottom style={{ color: '#c7a500' }}>
+      {hintMsg}
+    </Typography>);
   } else if (hintMsgId === 3) {
-    hintMsg = 'We cannot find your account. Please sign up.We cannot find your account. Please sign up.ount. Please sign up.ount. Please sign up.t. Please sign up.';
+    hintMsg = 'Please sign up. (We cannot find your account 😳.)';
+    hintJsx = (<Typography type="body1" gutterBottom style={{ color: '#d50000' }}>
+      {hintMsg}
+    </Typography>);
   } else if (hintMsgId === 4) {
-    hintMsg = 'Welcome back. An account activation email has been sent. To help us secure your account, please verify your email before sign in.';
+    hintMsg = 'Welcome to our new App 🎉. To help us secure your account, please verify your email before sign in. (An verification email has been sent.)';
+    hintJsx = (<Typography type="body1" gutterBottom style={{ color: '#087f23' }}>
+      {hintMsg}
+    </Typography>);
   } else if (hintMsgId === 5) {
-    hintMsg = 'Your account has been locked due to 10 times password input failure. An email has been sent to you, please unlock your account before sign in.';
+    hintMsg = 'Please unlock 🔓 your account before sign in. (Your account has been locked due to 10 times password input failure. An email for unlocking account has been sent to you 📬,)';
+    hintJsx = (<Typography type="body1" gutterBottom style={{ color: '#c66900' }}>
+      {hintMsg}
+    </Typography>);
   }
   return (
     <form onSubmit={handleSubmit}>
@@ -45,13 +58,11 @@ const WizardFormFirstPage = (props) => {
         <Typography type="headline" gutterBottom>
           Sign in
         </Typography>
-        {/* todo: replace this whole part into hintMsg for customized color */}
-        <Typography type="body1" gutterBottom style={{ color: '#ff7075' }}>
-          {hintMsg}
-        </Typography>
+        { hintJsx }
       </div>
       <div className={paddingTop}>
         <Field
+          // onFocus={setHintMsgAction(0)}
           name="signInEmail"
           fullWidth
           underlineStyle={{ borderColor: '#6f6e6b' }}

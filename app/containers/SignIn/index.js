@@ -40,6 +40,7 @@ import {
   previousPage,
   checkEmailInSignInForm,
   togglePwFieldVisibility,
+  setHintMsg,
 } from './actions';
 // import bgImageAsHK from '../../images/bg/ocean.jpg';
 // import BackgroundImage from 'react-background-image-loader';
@@ -70,6 +71,7 @@ export class SignIn extends React.Component { // eslint-disable-line react/prefe
       makeSelectPwVisi,
       togglePwVisiAction,
       hintMsgId,
+      setHintMsgAction,
     } = this.props;
 
     const formProps = {
@@ -90,6 +92,7 @@ export class SignIn extends React.Component { // eslint-disable-line react/prefe
       showProgressIndicator,
       makeSelectPwVisi,
       togglePwVisiAction,
+      setHintMsgAction,
     };
 
     return (
@@ -135,6 +138,7 @@ SignIn.propTypes = {
   checkEmail: PropTypes.func.isRequired,
   showProgressIndicator: PropTypes.bool.isRequired,
   goPreviousPage: PropTypes.func.isRequired,
+  setHintMsgAction: PropTypes.func.isRequired,
   makeSelectPwVisi: PropTypes.bool.isRequired,
   togglePwVisiAction: PropTypes.func.isRequired,
   // isLoggedIn: PropTypes.bool.isRequired,
@@ -176,6 +180,9 @@ export function mapDispatchToProps(dispatch) {
     },
     togglePwVisiAction: () => {
       dispatch(togglePwFieldVisibility());
+    },
+    setHintMsgAction: (msgId) => {
+      dispatch(setHintMsg(msgId));
     },
   };
 }

@@ -44,17 +44,6 @@ export function* checkEmailSaga(action) {
     // console.log(typeof (data.status));
     // type number
 
-    // if (data.status === 2) {
-    //   yield put(nextPage());
-    // } else if (data.status === 1) {
-    //   yield put(setHintMsg('A new email for activating your account has been sent. Please verify your email before sign in.'));
-    // } else if (data.status === 3) {
-    //   yield put(setHintMsg('We cannot find your account. Please sign up.'));
-    // } else if (data.status === 4) {
-    //   yield put(setHintMsg('Welcome to our new web App. To help us secure your account, an email has been sent to you, please verify your email before sign in'));
-    // } else if (data.status === 5) {
-    //   yield put(setHintMsg('Your account has been locked due to 10 times password input failure. An email has been sent to you, please unlock your account before sign in.'));
-    // }
     if (data.status === 2) {
       yield put(nextPage());
     } else if (data.status === 1) {
