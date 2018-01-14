@@ -25,28 +25,34 @@ import Toolbar from 'material-ui/Toolbar';
 // import ExpandLess from 'material-ui-icons/ExpandLess';
 // import ExpandMore from 'material-ui-icons/ExpandMore';
 // import StarBorder from 'material-ui-icons/StarBorder';
-import { OpenInNew } from 'mdi-material-ui';
+// import { OpenInNew } from 'mdi-material-ui';
 // import { GithubCircle } from 'mdi-material-ui';
 // import Collapse from 'material-ui/transitions/Collapse';
 import Typography from 'material-ui/Typography';
 import Divider from 'material-ui/Divider';
 import MenuIcon from 'material-ui-icons/Menu';
-import MenuList from 'material-ui/Menu/MenuList';
-import IconButton from 'material-ui/IconButton';
-import List, { ListItemIcon, ListItemText } from 'material-ui/List';
+import { MenuList, MenuItem } from 'material-ui/Menu';
+import { ListItemIcon, ListItemText } from 'material-ui/List';
 // import InboxIcon from 'material-ui-icons/MoveToInbox';
 import DraftsIcon from 'material-ui-icons/Drafts';
+import SendIcon from 'material-ui-icons/Send';
+// import MenuList from 'material-ui/Menu/MenuList';
+import { OpenInNew } from 'mdi-material-ui';
+import IconButton from 'material-ui/IconButton';
+// import List, { ListItemIcon, ListItemText } from 'material-ui/List';
+// import InboxIcon from 'material-ui-icons/MoveToInbox';
+// import DraftsIcon from 'material-ui-icons/Drafts';
 // import purple from 'material-ui/colors/purple';
 import green from 'material-ui/colors/green';
 import red from 'material-ui/colors/red';
 // import StarIcon from 'material-ui-icons/Star';
-import SendIcon from 'material-ui-icons/Send';
+// import SendIcon from 'material-ui-icons/Send';
 // import MailIcon from 'material-ui-icons/Mail';
 // import LocaleToggle from 'containers/LocaleToggle';
 import Footer from 'components/Footer';
 import { compose } from 'redux';
 import PropTypes from 'prop-types';
-import MenuItem from 'material-ui/es/Menu/MenuItem';
+// import MenuItem from 'material-ui/es/Menu/MenuItem';
 import messages from './messages';
 
 const AppWrapper = styled.div`
@@ -161,6 +167,14 @@ const styles = {
   nested: {
     paddingLeft: theme.spacing.unit,
   },
+  menuItem: {
+    '&:focus': {
+      backgroundColor: theme.palette.primary[500],
+      '& $text, & $icon': {
+        color: theme.palette.common.white,
+      },
+    },
+  },
 };
 
 class App extends React.Component {
@@ -200,8 +214,10 @@ class App extends React.Component {
     const { classes, location, intl } = this.props;
     const { formatMessage } = intl;
 
-    const internalLinkButtons = (
+    const drawer = (
       <div>
+        <div className={classes.drawerHeader} />
+        <Divider />
         <MenuList>
           <MenuItem button selected={location.pathname === '/'} component={NavLink} to="/" onClick={this.handleDrawerToggle}>
             <ListItemIcon>
@@ -216,28 +232,7 @@ class App extends React.Component {
             <ListItemText primary={formatMessage(messages.drawerFeatures)} />
           </MenuItem>
         </MenuList>
-      </div>
-    );
-
-    const externalLinkButtons = (
-      <div>
-        {/* collapse example, kept here for future reference */}
-        {/* <List> */}
-        {/* <ListItem button onClick={this.handleClick}> */}
-        {/* <ListItemIcon> */}
-        {/* <InboxIcon /> */}
-        {/* </ListItemIcon> */}
-        {/* <ListItemText inset primary={formatMessage(messages.externalLinks)} /> */}
-        {/* {this.state.subMenusOpen ? <ExpandLess /> : <ExpandMore />} */}
-        {/* </ListItem> */}
-        {/* <Collapse component="li" in={this.state.subMenusOpen} timeout="auto" unmountOnExit> */}
-        {/* <List disablePadding> */}
-        {/* <ListItem button className={classes.nested} component="a" href="https://git.io/wzx" target="_blank" onClick={this.handleDrawerToggle}> */}
-        {/* <ListItemText inset primary="Résumé" /> */}
-        {/* </ListItem> */}
-        {/* </List> */}
-        {/* </Collapse> */}
-        {/* </List> */}
+        <Divider />
         <MenuList>
           <MenuItem button component="a" href="https://git.io/wzx" target="_blank" onClick={this.handleDrawerToggle}>
             <ListItemIcon>
@@ -246,16 +241,6 @@ class App extends React.Component {
             <ListItemText primary={formatMessage(messages.resumeLink)} />
           </MenuItem>
         </MenuList>
-      </div>
-    );
-
-    const drawer = (
-      <div>
-        <div className={classes.drawerHeader} />
-        <Divider />
-        <List>{internalLinkButtons}</List>
-        <Divider />
-        <List>{externalLinkButtons}</List>
       </div>
     );
 
