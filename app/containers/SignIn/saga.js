@@ -1,13 +1,16 @@
 /* eslint-disable no-console */
 import request from 'utils/request';
-// import { delay } from 'redux-saga';
+import { delay } from 'redux-saga';
+import { push } from 'react-router-redux';
 import { call, put, takeLatest } from 'redux-saga/effects';
 // import { call, takeLatest } from 'redux-saga/effects';
+import { setLocalToken } from '../../utils/localStorage';
 import {
   nextPage,
   setHintMsg,
   showProgressIndicator,
   hideProgressIndicator,
+  showPwErrorHint,
   // cancelFailed,
   // SubmitStatus,
 } from './actions';
@@ -35,12 +38,12 @@ export function* checkEmailSaga(action) {
     },
   };
   try {
-    // console.log('--------- Now start delaying...');
+    console.log('--------- Now start delaying...');
     yield put(showProgressIndicator());
-    // yield call(delay, 500);
+    yield call(delay, 500);
     const data = yield call(request, requestURL, options);
     yield put(hideProgressIndicator());
-    // console.log('--------- Delay end. 0.5 seconds');
+    console.log('--------- Delay end/**/. 0.5 seconds');
     // console.log('if status is 3, it should return a message ask the user to register first.', data.status);
     // console.log(typeof (data.status));
     // type number
@@ -107,16 +110,25 @@ export function* signInSaga(action) {
   };
   try {
     // console.log('--------- Now start delaying...');
-    // yield put(showProgressIndicator());
-    // yield call(delay, 500);
+    yield put(showProgressIndicator());
+    yield call(delay, 500);
+    // console.log('position 1');
     const data = yield call(request, requestURL, options);
-    // yield put(hideProgressIndicator());
+    // console.log('position 2');
+    yield put(hideProgressIndicator());
     // console.log('--------- Delay end. 0.5 seconds');
-    // console.log('if status is 3, it should return a message ask the user to register first.', data.status);
-    console.log('--------- data from response: ****');
-    console.log(data);
-    console.log(typeof (data));
-    // type number
+    // console.log('--------- data from response: ****');
+    // console.log(data);
+    // console.log(data.wrongPw);
+    if (data.wrongPw) {
+      yield put(showPwErrorHint());
+    } else {
+      setLocalToken(data.token, data.email, data.type);
+      // yield put(logUserIn());
+      yield put(push('/'));
+      // console.log(browserHistory);
+      // browserHistory.push('/');
+    }
   } catch (err) {
     console.log('--------- error, please try again later.');
     // yield put(accountCheckingFail());

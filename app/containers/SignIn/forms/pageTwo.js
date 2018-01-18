@@ -1,4 +1,4 @@
-/* eslint-disable react/prop-types,jsx-a11y/label-has-for */
+/* eslint-disable react/prop-types,jsx-a11y/label-has-for,no-console */
 import React from 'react';
 import Grid from 'material-ui/Grid';
 import Typography from 'material-ui/Typography';
@@ -32,7 +32,14 @@ const WizardFormSecondPage = (props) => {
     makeSelectPwVisi,
     togglePwVisiAction,
     signInEmail,
+    showPwHintOrNot,
   } = props;
+
+  const hintJsx = (<Typography type="body1" gutterBottom style={{ color: '#d50000' }}>
+                      Please input the right password
+                    </Typography>);
+  console.log('---------');
+  console.log(showPwHintOrNot);
   return (
     <form onSubmit={handleSubmit}>
       <div style={{ height: 96 }}>
@@ -42,6 +49,7 @@ const WizardFormSecondPage = (props) => {
         <Typography type="body1" gutterBottom>
           {signInEmail}
         </Typography>
+        {showPwHintOrNot && hintJsx}
       </div>
       <div className={paddingTop}>
         <div className={buttonProgressWrapper}>

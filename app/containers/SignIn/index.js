@@ -22,11 +22,12 @@ import { compose } from 'redux';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import {
-  makeSelectIsLoggedIn,
+  // makeSelectIsLoggedIn,
   makeSelectFormPageNumber,
   makeSelectProgressIndicator,
   makeSelectPwFieldVisible,
   makeSelecthintMsgId,
+  makeSelectShowPwOrNot,
   // selectEmail,
 } from './selectors';
 import reducer from './reducer';
@@ -42,6 +43,7 @@ import {
   togglePwFieldVisibility,
   setHintMsg,
   signIn,
+  hidePwErrorHint,
 } from './actions';
 // import bgImageAsHK from '../../images/bg/ocean.jpg';
 // import BackgroundImage from 'react-background-image-loader';
@@ -75,6 +77,9 @@ export class SignIn extends React.Component { // eslint-disable-line react/prefe
       togglePwVisiAction,
       hintMsgId,
       setHintMsgAction,
+      hidePwHintAction,
+      showPwHintOrNot,
+      // pushLocationAction,
     } = this.props;
 
     const formProps = {
@@ -96,6 +101,8 @@ export class SignIn extends React.Component { // eslint-disable-line react/prefe
       makeSelectPwVisi,
       togglePwVisiAction,
       setHintMsgAction,
+      hidePwHintAction,
+      showPwHintOrNot,
     };
 
     return (
@@ -142,8 +149,10 @@ SignIn.propTypes = {
   showProgressIndicator: PropTypes.bool.isRequired,
   goPreviousPage: PropTypes.func.isRequired,
   setHintMsgAction: PropTypes.func.isRequired,
+  hidePwHintAction: PropTypes.func.isRequired,
   signInAction: PropTypes.func.isRequired,
   makeSelectPwVisi: PropTypes.bool.isRequired,
+  showPwHintOrNot: PropTypes.bool.isRequired,
   togglePwVisiAction: PropTypes.func.isRequired,
   // isLoggedIn: PropTypes.bool.isRequired,
   formPage: PropTypes.number.isRequired,
@@ -154,11 +163,12 @@ SignIn.propTypes = {
 };
 //
 const mapStateToProps = createStructuredSelector({
-  isLoggedIn: makeSelectIsLoggedIn(),
+  // isLoggedIn: makeSelectIsLoggedIn(),
   formPage: makeSelectFormPageNumber(),
   showProgressIndicator: makeSelectProgressIndicator(),
   makeSelectPwVisi: makeSelectPwFieldVisible(),
   hintMsgId: makeSelecthintMsgId(),
+  showPwHintOrNot: makeSelectShowPwOrNot(),
   // selectEmail: selectEmail(),
 });
 //
@@ -188,9 +198,21 @@ export function mapDispatchToProps(dispatch) {
     setHintMsgAction: (msgId) => {
       dispatch(setHintMsg(msgId));
     },
+    hidePwHintAction: () => {
+      dispatch(hidePwErrorHint());
+    },
     signInAction: (email, pw) => {
       dispatch(signIn(email, pw));
     },
+    // pushLocationAction: (accountType) => {
+    //   if (accountType === 'borrower') {
+    //     dispatch(push('/'));
+    //   } else if (accountType === 'lender') {
+    //     dispatch(push('/lender-dashboard'));
+    //   } else {
+    //     dispatch(push('/admin-dashboard'));
+    //   }
+    // },
   };
 }
 
@@ -205,7 +227,6 @@ export default compose(
   withReducer,
   withStyles(styles),
   withSaga,
-  withTheme(),
   withTheme(),
   withConnect,
 )(SignIn);

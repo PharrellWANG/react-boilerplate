@@ -14,6 +14,8 @@ import {
   TOGGLE_PW_FIELD_VISIBILITY,
   SET_HINT_MSG_ID,
   SIGN_IN_REQUEST,
+  SHOW_PW_ERROR_HINT,
+  HIDE_PW_ERROR_HINT,
 } from './constants';
 
 export function defaultAction() {
@@ -71,5 +73,17 @@ export function signIn(email, pw) {
     type: SIGN_IN_REQUEST,
     email,
     pw,
+  };
+}
+
+export function showPwErrorHint() {
+  return {
+    type: SHOW_PW_ERROR_HINT,
+  };
+}
+
+export function hidePwErrorHint() {
+  return {
+    type: HIDE_PW_ERROR_HINT,
   };
 }

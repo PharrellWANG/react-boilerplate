@@ -1,3 +1,4 @@
+/* eslint-disable arrow-body-style,no-console */
 /**
  *
  * App
@@ -8,7 +9,7 @@
 
 import React from 'react';
 import { Helmet } from 'react-helmet';
-import styled from 'styled-components';
+// import styled, { css } from 'styled-components';
 import Reboot from 'material-ui/Reboot';
 import { connect } from 'react-redux';
 // import { matchPath } from 'react-router';
@@ -37,7 +38,6 @@ import { OpenInNew } from 'mdi-material-ui';
 import Typography from 'material-ui/Typography';
 import Divider from 'material-ui/Divider';
 import MenuIcon from 'material-ui-icons/Menu';
-import MenuList from 'material-ui/Menu/MenuList';
 import IconButton from 'material-ui/IconButton';
 import List, { ListItemIcon, ListItemText } from 'material-ui/List';
 // import InboxIcon from 'material-ui-icons/MoveToInbox';
@@ -49,22 +49,17 @@ import SendIcon from 'material-ui-icons/Send';
 import Footer from 'components/Footer';
 import { compose } from 'redux';
 import PropTypes from 'prop-types';
-import MenuItem from 'material-ui/es/Menu/MenuItem';
+import { MenuList, MenuItem } from 'material-ui/Menu';
 import messages from './messages';
+import { isLoggedIn as pureIsLoggedIn } from '../../utils/localStorage';
 // import { isLoggedIn } from '../../utils/localStorage';
 // import makeSelectIsLoggedIn from '../SignIn/selectors';
-import { makeSelectIsLoggedIn } from './selectors';
+import {
+  makeSelectIsLoggedIn,
+  userIsAuthenticated,
+} from './selectors';
 // import bgImageAsHK from 'images/hk.jpg';
 // import { changeUsername } from '../HomePage/actions'
-
-const AppWrapper = styled.div`
-  // max-width: calc(768px + 16px * 2);
-  // margin: 0 auto;
-  // display: flex;
-  // min-height: 100%;
-  // padding: 0 16px;
-  // flex-direction: column;
-`;
 
 const theme = createMuiTheme({
   palette: {
@@ -91,7 +86,6 @@ const theme = createMuiTheme({
 });
 
 const drawerWidth = 250;
-// const bgImg = 'images/hk.jpg';
 
 const styles = {
   // bgDiv: {
@@ -102,7 +96,7 @@ const styles = {
     // overflow: 'hidden',
     // height: '100%',
   // },
-  flex: {
+  globalFlex: {
     flex: 1,
     fontWeight: 420,
   },
@@ -120,20 +114,20 @@ const styles = {
   listFull: {
     width: 'auto',
   },
-  root: {
+  globalRoot: {
     width: '100%',
     // height: 430,
     // marginTop: theme.spacing.unit * 3,
     // zIndex: 1,//
     overflow: 'hidden',
   },
-  appFrame: {
+  globalAppFrame: {
     position: 'relative',
     display: 'flex',
     width: '100%',
     height: '100%',
   },
-  appBar: {
+  globalAppBarStyle: {
     position: 'fixed',
     marginLeft: drawerWidth,
     [theme.breakpoints.up('md')]: {
@@ -143,13 +137,13 @@ const styles = {
   appBarFullWidth: {
     position: 'fixed',
   },
-  navIconHide: {
+  globalNavIconHide: {
     [theme.breakpoints.up('md')]: {
       display: 'none',
     },
   },
   drawerHeader: theme.mixins.toolbar,
-  drawerPaper: {
+  globalDrawerPaper: {
     width: 250,
     [theme.breakpoints.up('md')]: {
       width: drawerWidth,
@@ -161,10 +155,10 @@ const styles = {
   contentNotSignInYet: {
     marginTop: 56,
   },
-  innerContent: {
+  globalInnerContent: {
     padding: theme.spacing.unit * 3,
   },
-  content: {
+  globalContent: {
     backgroundColor: theme.palette.background.default,
     width: '100%',
     // padding: theme.spacing.unit * 3,
@@ -210,7 +204,7 @@ class App extends React.Component {
     //   this.props.history.push('/signin')
     // }
     //
-    this.props.checkAuth(this.props.isLoggedIn, this.props.location.pathname);
+    this.props.checkAuth(pureIsLoggedIn(), this.props.location.pathname);
     if (this.props.location.pathname === '/') {
       this.setState({ title: this.props.intl.formatMessage(messages.drawerHome) });
     } else if (this.props.location.pathname === '/features') {
@@ -301,9 +295,12 @@ class App extends React.Component {
       </div>
     );
 
+    // const { isLoggedIn } = this.props;
+    console.log(pureIsLoggedIn());
+
     return (
       <MuiThemeProvider theme={theme}>
-        <AppWrapper>
+        <div>
           <Reboot />
           <Helmet
             titleTemplate="%s - React.js Boilerplate"
@@ -311,73 +308,70 @@ class App extends React.Component {
           >
             <meta name="description" content="A React.js Boilerplate application" />
           </Helmet>
-          <div className={classes.root}>
-            { this.props.isLoggedIn ?
-              <div className={classes.appFrame}>
-                <AppBar className={classes.appBar}>
-                  <Toolbar>
-                    <IconButton
-                      color="contrast"
-                      aria-label="open drawer"
-                      onClick={this.handleDrawerToggle}
-                      className={classes.navIconHide}
-                    >
-                      <MenuIcon />
-                    </IconButton>
-                    <Typography type="title" color="inherit" className={classes.flex}>
-                      {this.state.title}
-                    </Typography>
-                  </Toolbar>
-                </AppBar>
-                <Hidden mdUp>
-                  <Drawer
-                    type="temporary"
-                    anchor={theme.direction === 'rtl' ? 'right' : 'left'}
-                    open={this.state.mobileOpen}
-                    classes={{
-                      paper: classes.drawerPaper,
-                    }}
-                    onClose={this.handleDrawerToggle}
-                    ModalProps={{
-                      keepMounted: true, // Better open performance on mobile.
-                    }}
+          <div className={classes.globalRoot} >
+            {pureIsLoggedIn() &&
+            <div>
+              <AppBar className={classes.globalAppBarStyle}>
+                <Toolbar>
+                  <IconButton
+                    color="contrast"
+                    aria-label="open drawer"
+                    onClick={this.handleDrawerToggle}
+                    className={classes.globalNavIconHide}
                   >
-                    {drawer}
-                  </Drawer>
-                </Hidden>
-                <Hidden smDown implementation="css">
-                  <Drawer
-                    type="permanent"
-                    open
-                    classes={{
-                      paper: classes.drawerPaper,
-                    }}
-                  >
-                    {drawer}
-                  </Drawer>
-                </Hidden>
-                {/* { !this.props.isLoggedIn && <Redirect to='/signin' push={true} />} */}
-                <main className={classes.content}>
-                  <div className={classes.innerContent}>
-                    <Switch>
-                      <Route exact path="/" component={HomePage} />
-                      <Route path="/features" component={FeaturePage} />
-                      <Route path="*" component={NotFoundPage} />
-                    </Switch>
-                  </div>
-                  <Footer />
-                </main>
-              </div>
-              : <div>
+                    <MenuIcon />
+                  </IconButton>
+                  <Typography type="title" color="inherit" className={classes.globalFlex}>
+                    {this.state.title}
+                  </Typography>
+                </Toolbar>
+              </AppBar>
+              <Hidden mdUp>
+                <Drawer
+                  type="temporary"
+                  anchor={theme.direction === 'rtl' ? 'right' : 'left'}
+                  open={this.state.mobileOpen}
+                  classes={{
+                    paper: classes.globalDrawerPaper,
+                  }}
+                  onClose={this.handleDrawerToggle}
+                  ModalProps={{
+                    keepMounted: true, // Better open performance on mobile.
+                  }}
+                >
+                  {drawer}
+                </Drawer>
+              </Hidden>
+              <Hidden smDown implementation="css">
+                <Drawer
+                  type="permanent"
+                  open
+                  classes={{
+                    paper: classes.globalDrawerPaper,
+                  }}
+                >
+                  {drawer}
+                </Drawer>
+              </Hidden>
+            </div>
+            }
+            <main className={classes.globalContent}>
+              <div className={classes.globalInnerContent}>
+                {/* <div> */}
                 <Switch>
                   <Route exact path="/signin" component={SignIn} />
                   <Route exact path="/signup" component={NotFoundPage} />
+                  <Route exact path="/" component={userIsAuthenticated(HomePage)} />
+                  <Route path="/features" component={userIsAuthenticated(FeaturePage)} />
                   <Route path="*" component={NotFoundPage} />
                 </Switch>
               </div>
-                }
+              {pureIsLoggedIn() &&
+              <Footer />
+              }
+            </main>
           </div>
-        </AppWrapper>
+        </div>
       </MuiThemeProvider>
     );
   }

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import LocaleToggle from 'containers/LocaleToggle';
 import { compose } from 'redux';
 import { FormattedMessage } from 'react-intl';
-import { withStyles, withTheme } from 'material-ui/styles/index';
+import { withStyles, withTheme } from 'material-ui/styles';
 import Typography from 'material-ui/Typography';
 
 // import A from 'components/A';

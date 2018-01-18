@@ -13,9 +13,14 @@ import WizardFormSecondPage from './pageTwo';
 
 class WizardForm extends React.Component {
   componentWillReceiveProps(nextProps) {
-    if (nextProps.showHint !== this.props.showHint) {
-      if (nextProps.showHint === undefined || nextProps.showHint === true) {
+    if (nextProps.signinEmailFieldTurnsToActive !== this.props.signinEmailFieldTurnsToActive) {
+      if (nextProps.signinEmailFieldTurnsToActive === undefined || nextProps.signinEmailFieldTurnsToActive === true) {
         this.props.setHintMsgAction(0);
+      }
+    }
+    if (nextProps.pwFieldTurnsToActive !== this.props.pwFieldTurnsToActive) {
+      if (nextProps.pwFieldTurnsToActive === undefined || nextProps.pwFieldTurnsToActive === true) {
+        this.props.hidePwHintAction();
       }
     }
   }
@@ -40,6 +45,7 @@ class WizardForm extends React.Component {
       togglePwVisiAction,
       signInEmail,
       hintMsgId,
+      showPwHintOrNot,
     } = this.props;
     return (
       <div>
@@ -58,6 +64,7 @@ class WizardForm extends React.Component {
         />}
         {formPage === 2 && (
           <WizardFormSecondPage
+            showPwHintOrNot={showPwHintOrNot}
             signInEmail={signInEmail}
             makeSelectPwVisi={makeSelectPwVisi}
             togglePwVisiAction={togglePwVisiAction}
@@ -86,15 +93,28 @@ const selector = formValueSelector('wizard'); // <-- same as form name
 WizardForm = connect((state) => {
   const signInEmail = selector(state, 'signInEmail');
   const fields = getFormMeta('wizard')(state);
-  let showHint = false;
+  // pharrell:
+  // the idea is when the signInField turns active from
+  // inactive, we will dispatch an action in
+  // componentWillReceiveProps to set displayError to false.
+  let signinEmailFieldTurnsToActive = false;
   try {
-    showHint = fields.toJS().signInEmail.active;
+    signinEmailFieldTurnsToActive = fields.toJS().signInEmail.active;
   } catch (err) {
-    showHint = false;
+    signinEmailFieldTurnsToActive = false;
   }
+  //
+  let pwFieldTurnsToActive = false;
+  try {
+    pwFieldTurnsToActive = fields.toJS().password.active;
+  } catch (err) {
+    pwFieldTurnsToActive = false;
+  }
+
   return {
     signInEmail,
-    showHint,
+    signinEmailFieldTurnsToActive,
+    pwFieldTurnsToActive,
 // fullName: `${firstName || ''} ${lastName || ''}`,
   };
 })(WizardForm);

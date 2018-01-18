@@ -34,10 +34,10 @@ import { createSelector } from 'reselect';
 // );
 const selectSignInDomain = (state) => state.get('signIn');
 
-const makeSelectIsLoggedIn = () => createSelector(
-  selectSignInDomain,
-  (subState) => subState.get('isLoggedIn')
-);
+// const makeSelectIsLoggedIn = () => createSelector(
+//   selectSignInDomain,
+//   (subState) => subState.get('isLoggedIn')
+// );
 
 const makeSelectProgressIndicator = () => createSelector(
   selectSignInDomain,
@@ -59,10 +59,16 @@ const makeSelectFormPageNumber = () => createSelector(
   (subState) => subState.get('formPageNumber')
 );
 
+const makeSelectShowPwOrNot = () => createSelector(
+  selectSignInDomain,
+  (subState) => subState.get('showPwErrorOrNot')
+);
+
 export {
+  makeSelectShowPwOrNot,
   makeSelectProgressIndicator,
   makeSelectPwFieldVisible,
-  makeSelectIsLoggedIn,
+  // makeSelectIsLoggedIn,
   makeSelecthintMsgId,
   selectSignInDomain,
   makeSelectFormPageNumber,

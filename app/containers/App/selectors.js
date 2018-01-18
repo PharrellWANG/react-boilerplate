@@ -1,8 +1,10 @@
 /**
  * The global state selectors
  */
+import { connectedRouterRedirect } from 'redux-auth-wrapper/history4/redirect';
 
 import { createSelector } from 'reselect';
+import { isLoggedIn } from '../../utils/localStorage';
 
 const selectGlobal = (state) => state.get('global');
 
@@ -12,6 +14,15 @@ const makeSelectIsLoggedIn = () => createSelector(
   selectGlobal,
   (subState) => subState.get('isLoggedIn')
 );
+
+const userIsAuthenticated = connectedRouterRedirect({
+   // The url to redirect user to if they fail
+  redirectPath: '/signin',
+   // Determine if the user is authenticated or not
+  authenticatedSelector: isLoggedIn,
+  // A nice display name for this check
+  wrapperDisplayName: 'UserIsAuthenticated',
+});
 
 const makeSelectCurrentUser = () => createSelector(
   selectGlobal,
@@ -39,6 +50,7 @@ const makeSelectLocation = () => createSelector(
 );
 
 export {
+  userIsAuthenticated,
   selectGlobal,
   makeSelectIsLoggedIn,
   makeSelectCurrentUser,

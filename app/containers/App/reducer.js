@@ -11,7 +11,6 @@
  */
 
 import { fromJS } from 'immutable';
-import { isLoggedIn } from '../../utils/localStorage';
 
 import {
   LOAD_REPOS_SUCCESS,
@@ -21,7 +20,6 @@ import {
 
 // The initial state of the App
 const initialState = fromJS({
-  isLoggedIn: isLoggedIn(),
   loading: false,
   error: false,
   currentUser: false,
