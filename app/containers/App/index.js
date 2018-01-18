@@ -157,13 +157,18 @@ const styles = {
   },
   globalInnerContent: {
     padding: theme.spacing.unit * 3,
+    flex: 1,
   },
   globalContent: {
+    display: 'flex',
+    minHeight: '100vh',
+    flexDirection: 'column',
     backgroundColor: theme.palette.background.default,
     width: '100%',
     // padding: theme.spacing.unit * 3,
-    height: 'calc(100% - 56px)',
-    marginTop: 56,
+    // height: 'calc(100% - 56px)',
+    // marginTop: 56,
+    paddingTop: 56,
     // position: 'relative',
     // marginLeft: drawerWidth,
     [theme.breakpoints.up('md')]: {
